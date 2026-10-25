@@ -1,4 +1,6 @@
-# Molecular Toxicity Prediction — Student 1
+# Molecular-Toxicity-Prediction
+
+Student 1 — Dataset validation, preprocessing, and EDA
 
 Auditable Tox21 acquisition, structure validation, duplicate/label audits, and EDA for the B.Tech project **Molecular Toxicity Prediction via Chemical Fingerprints and Molecular Graph Networks**.
 
