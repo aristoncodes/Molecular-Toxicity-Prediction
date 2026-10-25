@@ -6,6 +6,7 @@ import gzip
 import os
 from pathlib import Path
 import tempfile
+import zlib
 
 import requests
 from requests.adapters import HTTPAdapter
@@ -17,10 +18,13 @@ from .common import cli, read_json, sha256, utc_now, write_json
 def validate_gzip(path: str | Path) -> None:
     """Read through the trailer so truncated archives and CRC failures are rejected."""
     try:
+        with open(path, "rb") as compressed:
+            if compressed.read(2) != b"\x1f\x8b":
+                raise ValueError(f"Invalid gzip archive {path}: missing gzip header")
         with gzip.open(path, "rb") as stream:
             while stream.read(1024 * 1024):
                 pass
-    except (OSError, EOFError) as error:
+    except (OSError, EOFError, zlib.error) as error:
         raise ValueError(f"Invalid gzip archive {path}: {error}") from error
 
 

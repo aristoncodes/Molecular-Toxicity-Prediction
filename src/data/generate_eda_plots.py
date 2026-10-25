@@ -10,6 +10,7 @@ os.environ.setdefault("MPLCONFIGDIR", str(ROOT / ".mplconfig"))
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 import numpy as np
 import pandas as pd
 
@@ -97,14 +98,22 @@ def generate_eda(config: dict) -> None:
         values = properties[column].to_numpy()
         if not np.isfinite(values).all():
             raise ValueError(f"Nonfinite molecular properties: {column}")
-        bins = np.histogram_bin_edges(values, bins="auto")
+        bins = (np.histogram_bin_edges(values, bins="auto") if column == "molecular_weight"
+                else np.arange(values.min() - 0.5, values.max() + 1.5))
         counts, edges = np.histogram(values, bins=bins)
         figure, axis = plt.subplots(figsize=config["plot"]["figsize"])
         axis.stairs(counts, edges, fill=True, color="#35658d")
         axis.set(title=f"{title} (valid n={len(values)}, duplicates retained)", xlabel=xlabel, ylabel="Source records")
+        scale = "linear"
+        if column == "ring_count" and values.max() > 20:
+            scale = "symlog (linear threshold 10)"
+            axis.set_xscale("symlog", linthresh=10)
+            axis.set_xticks([tick for tick in [0, 2, 5, 10, 20, 50, 100, 200, 500] if tick <= values.max()])
+            axis.set_xticklabels([str(int(tick)) for tick in axis.get_xticks()])
+            axis.set_xlabel(xlabel + "; symlog above 10")
         save(f"{number:02d}_{column}", figure, {"sample_size": len(values), "population": "valid source records; duplicates retained",
                                               "source_rows": properties.source_row.tolist(), "values": values.tolist(),
-                                              "bin_edges": edges.tolist(), "bin_counts": counts.tolist(),
+                                              "x_axis_scale": scale, "bin_edges": edges.tolist(), "bin_counts": counts.tolist(),
                                               "summary": report["property_summary"][column]})
 
     duplicates = report["duplicates"]
@@ -115,6 +124,8 @@ def generate_eda(config: dict) -> None:
         axis.bar_label(bars, padding=3)
         axis.set(ylabel=ylabel, title=f"Duplicate audit: {suffix}")
         axis.margins(y=0.15)
+        axis.set_ylim(bottom=0, top=max(1, axis.get_ylim()[1]))
+        axis.yaxis.set_major_locator(MaxNLocator(integer=True))
     figure.suptitle("Conflicts are a subset of canonical duplicates")
     save("10_duplicates_conflicts", figure, duplicates)
     write_report(config, report, manifest, eda_complete=True)

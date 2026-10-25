@@ -83,4 +83,17 @@ Raw endpoint counts and prevalence use all raw source records. Molecular distrib
 
 ## Validation record
 
-Implementation validation is in progress. Final test results and measured real-data status will replace this paragraph after execution; no test outcome is claimed yet.
+Validated on Python 3.14.2, Darwin arm64. Tested primary versions: pandas 3.1.0, NumPy 2.5.4, RDKit 2026.9.1, Matplotlib 3.11.2, PyYAML 6.0.3, requests 2.34.2, pytest 9.1.1. Other environments remain unverified.
+
+Measured source: **7,831 rows, 14 columns**, **7,823 valid structures**, **8 exclusions**. No duplicate raw SMILES, canonical duplicate groups, conflicting duplicate labels, or invalid endpoint encodings were found in this artifact under the recorded policy and RDKit version. The compressed checksum exactly matched the reference. The cleaned CSV contains 7,823 source records, and all ten PNG/PDF figures and underlying JSON statistics were generated.
+
+Executed validation:
+
+- All four module commands above completed successfully on the real dataset.
+- `python -m pytest tests/ -v`: 29 passed, 1 explicitly skipped real-data test.
+- `python -m pytest tests/ -v --run-real-data`: **30 passed**, including the real-data audit.
+- `python -m compileall -q src tests`: successful.
+- `python -m pip check`: no broken requirements.
+- All ten generated figures were visually inspected; counts and histogram totals were reconciled with the audited populations.
+
+The ring-count distribution contains large algorithm-defined values for symmetric cyclic structures (maximum 264 in this RDKit version). These values are retained. The ring plot uses an explicitly labelled symlog x-axis above 10; they must not be interpreted as independent cycle counts.

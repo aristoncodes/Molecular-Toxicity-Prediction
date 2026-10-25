@@ -33,7 +33,7 @@ def test_gzip_integrity(tmp_path):
     payload = gzip.compress(b"example" * 100)
     path.write_bytes(payload)
     validate_gzip(path)
-    for invalid in [payload[:-5], b"not gzip", payload[:-8] + b"\x00" * 8]:
+    for invalid in [b"", payload[:2], payload[:-5], b"not gzip", payload[:-8] + b"\x00" * 8]:
         path.write_bytes(invalid)
         with pytest.raises(ValueError, match="Invalid gzip"):
             validate_gzip(path)

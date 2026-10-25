@@ -62,7 +62,9 @@ See duplicates.csv for affected source rows, group IDs and conflicting endpoints
 Properties are calculated on valid raw source records, including repeated structures, without hydrogen addition.
 Atom count = RDKit GetNumAtoms (represented atoms, not total implicit hydrogens); heavy atoms = GetNumHeavyAtoms.
 Molecular weight = Descriptors.MolWt in g/mol using RDKit's average atomic weights.
-Ring count = Lipinski.RingCount; rotatable bonds = Lipinski.NumRotatableBonds with its installed-version defaults.
+Ring count = Lipinski.RingCount using RDKit ring information; rotatable bonds = Lipinski.NumRotatableBonds with its installed-version defaults.
+Ring count is an algorithm-defined measure, not necessarily the number of independent cycles. Symmetric cyclic structures can yield large counts; no such outliers are silently removed.
+Count histograms use unit-width, integer-centered bins. When the maximum ring count exceeds 20, its x-axis uses symlog above 10 to show the main distribution and full tail.
 These properties are EDA summaries only, not a descriptor feature pipeline.
 
 | Property | Sample size | Mean | Median | Minimum | Maximum |
@@ -73,14 +75,14 @@ These properties are EDA summaries only, not a descriptor feature pipeline.
 | ring_count | 7823 | 1.824 | 1.000 | 0.000 | 264.000 |
 | rotatable_bond_count | 7823 | 4.303 | 3.000 | 0.000 | 47.000 |
 
-Figures: pending; a successful preprocessing manifest is required for the EDA command.
+Figures: generated in results/figures/eda, with PNG/PDF and per-figure numerical JSON.
 
 ## Exclusion accounting
 
 Measured accounting: `{"input": 7831, "invalid_exclusions": 8, "valid_candidates": 7823, "reconciled": true}`.
-Preprocessing publication status: **pending**.
-Published output records: pending.
-Run preprocessing to establish publication status.
+Preprocessing publication status: **success**.
+Published output records: 7823.
+
 Blocked runs publish no new cleaned CSV; any older CSV is stale and cannot be consumed through the EDA command.
 
 ## Limitations and data-quality risks

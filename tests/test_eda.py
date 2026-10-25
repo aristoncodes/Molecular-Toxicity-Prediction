@@ -7,7 +7,18 @@ from src.data.generate_eda_plots import generate_eda, verify_outputs
 from src.data.preprocess import preprocess
 
 
-def test_all_figures_and_statistics(config, save_raw, rows):
+def test_all_figures_and_statistics(config, save_raw, rows, monkeypatch):
+    from src.data import inspect_dataset
+    original = inspect_dataset.structure_properties
+
+    def with_ring_outlier(molecule):
+        properties = original(molecule)
+        # Exercise the long-tail plotting branch using synthetic property measurements.
+        if molecule.GetNumAtoms() == 6:
+            properties["ring_count"] = 30
+        return properties
+
+    monkeypatch.setattr(inspect_dataset, "structure_properties", with_ring_outlier)
     save_raw([rows("CCO", 1), rows("CC", 0), rows("C1CCCCC1", None), rows("invalid!")])
     preprocess(config)
     generate_eda(config)
@@ -19,6 +30,9 @@ def test_all_figures_and_statistics(config, save_raw, rows):
     assert stats["sample_size"] == 3
     assert sum(stats["bin_counts"]) == 3
     assert stats["values"] == [3, 2, 6]
+    ring_stats = json.loads((folder / "08_ring_count.json").read_text())
+    assert ring_stats["x_axis_scale"] == "symlog (linear threshold 10)"
+    assert sum(ring_stats["bin_counts"]) == 3
     assert "generated" in Path(config["report_path"]).read_text()
 
 

@@ -173,7 +173,9 @@ See duplicates.csv for affected source rows, group IDs and conflicting endpoints
 Properties are calculated on valid raw source records, including repeated structures, without hydrogen addition.
 Atom count = RDKit GetNumAtoms (represented atoms, not total implicit hydrogens); heavy atoms = GetNumHeavyAtoms.
 Molecular weight = Descriptors.MolWt in g/mol using RDKit's average atomic weights.
-Ring count = Lipinski.RingCount; rotatable bonds = Lipinski.NumRotatableBonds with its installed-version defaults.
+Ring count = Lipinski.RingCount using RDKit ring information; rotatable bonds = Lipinski.NumRotatableBonds with its installed-version defaults.
+Ring count is an algorithm-defined measure, not necessarily the number of independent cycles. Symmetric cyclic structures can yield large counts; no such outliers are silently removed.
+Count histograms use unit-width, integer-centered bins. When the maximum ring count exceeds 20, its x-axis uses symlog above 10 to show the main distribution and full tail.
 These properties are EDA summaries only, not a descriptor feature pipeline.
 
 | Property | Sample size | Mean | Median | Minimum | Maximum |
