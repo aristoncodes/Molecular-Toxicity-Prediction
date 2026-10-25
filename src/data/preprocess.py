@@ -1,7 +1,7 @@
 """Publish valid records only when the label and duplicate audits permit it."""
 from __future__ import annotations
 
-from .common import cli, sha256, utc_now, versions, write_csv, write_json
+from .common import cli, sha256, utc_now, versions, write_csv, write_json, write_report
 from .inspect_dataset import inspect
 
 
@@ -39,11 +39,14 @@ def preprocess(config: dict) -> dict:
                          "exclusions_sha256": sha256(config["exclusion_path"]),
                          "duplicates_sha256": sha256(config["duplicate_path"])})
         write_json(config["manifest_path"], manifest)
+        write_report(config, report, manifest)
         print(f"Published {len(cleaned)} valid source records; {len(exclusions)} exclusions; duplicates retained")
         return manifest
     except (OSError, ValueError, RuntimeError, KeyError) as error:
         manifest.update({"status": "blocked", "output_records": None, "output_sha256": None, "error": str(error)})
         write_json(config["manifest_path"], manifest)
+        if "report" in locals():
+            write_report(config, report, manifest)
         raise
 
 

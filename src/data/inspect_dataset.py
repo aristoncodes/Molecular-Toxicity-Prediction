@@ -11,7 +11,7 @@ import pandas as pd
 from rdkit import Chem, rdBase
 from rdkit.Chem import Descriptors, Lipinski
 
-from .common import cli, sha256, write_csv, write_json
+from .common import cli, sha256, write_csv, write_json, write_report
 from .download_data import verify_raw
 
 AUDIT_COLUMNS = {"source_row", "canonical_smiles", "duplicate_group", "duplicate_status"}
@@ -203,6 +203,7 @@ def inspect(config: dict) -> tuple:
     write_csv(config["duplicate_path"], duplicates)
     write_csv(config["properties_path"], properties)
     write_json(config["quality_report_path"], report)
+    write_report(config, report)
     print(f"Raw: {report['rows']} rows × {report['columns_count']} columns; SMILES: {report['smiles_column']}")
     print(f"Structures: {len(valid)} valid, {len(exclusions)} excluded; duplicates: {report['duplicates']}")
     for endpoint, counts in report["labels"].items():
