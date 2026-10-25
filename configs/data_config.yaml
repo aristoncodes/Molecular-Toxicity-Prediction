@@ -1,0 +1,33 @@
+dataset_url: https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/tox21.csv.gz
+reference_sha256: 45d09792492ce049039dd24aa27b07fc79ce20c573187d4d90bcd178c0c0d360
+raw_path: data/raw/tox21.csv.gz
+provenance_path: data/raw/download_provenance.json
+processed_path: data/processed/tox21_cleaned.csv
+manifest_path: data/processed/dataset_manifest.json
+quality_report_path: results/experiment_logs/data_quality_report.json
+exclusion_path: results/experiment_logs/exclusions.csv
+duplicate_path: results/experiment_logs/duplicates.csv
+properties_path: results/experiment_logs/structure_properties.csv
+figures_path: results/figures/eda
+report_path: reports/dataset_eda_report.md
+smiles_column: smiles
+endpoints:
+  - NR-AR
+  - NR-AR-LBD
+  - NR-AhR
+  - NR-Aromatase
+  - NR-ER
+  - NR-ER-LBD
+  - NR-PPAR-gamma
+  - SR-ARE
+  - SR-ATAD5
+  - SR-HSE
+  - SR-MMP
+  - SR-p53
+canonicalization:
+  canonical: true
+  isomericSmiles: true
+plot:
+  dpi: 300
+  figsize: [10, 6]
+seed: 42

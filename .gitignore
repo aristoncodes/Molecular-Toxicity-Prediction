@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.mplconfig/
+*.pyc
+*.part
+.DS_Store
+data/raw/*
+data/processed/*
+results/experiment_logs/*
+results/figures/eda/*
