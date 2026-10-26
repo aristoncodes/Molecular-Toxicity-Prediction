@@ -6,6 +6,12 @@ Student 2 responsibilities:
 - Combined feature representations and manifests
 """
 
+from src.features.descriptors import (
+    DESCRIPTOR_METADATA,
+    DESCRIPTOR_NAMES,
+    compute_descriptors_matrix,
+    compute_molecular_descriptors,
+)
 from src.features.fingerprints import (
     DEFAULT_MORGAN_N_BITS,
     DEFAULT_MORGAN_RADIUS,
@@ -18,4 +24,8 @@ __all__ = [
     "compute_morgan_fingerprints",
     "DEFAULT_MORGAN_RADIUS",
     "DEFAULT_MORGAN_N_BITS",
+    "compute_molecular_descriptors",
+    "compute_descriptors_matrix",
+    "DESCRIPTOR_NAMES",
+    "DESCRIPTOR_METADATA",
 ]
