@@ -156,3 +156,33 @@ pytest tests/ -v --tb=short
 - **Validation Partition:** 782 molecules (**9.996%**) — 782 scaffolds
 - **Test Partition:** 783 molecules (**10.009%**) — 783 scaffolds
 - **Scaffold Leakage:** **0** overlapping scaffolds across train, validation, and test partitions.
+
+---
+
+# Student 3 — Independent Phase 1 Auditor and Contributor
+
+Independent verification, audit suite, leakage prevention, and evaluation methodology for **Molecular Toxicity Prediction via Chemical Fingerprints and Molecular Graph Networks**.
+
+## Student 3 Architecture & Deliverables
+
+1. **Independent Dataset Audit (`src/audit/dataset_audit.py`)**: Re-verifies raw gzip SHA-256 (`45d09792...`), record accounting ($7823 + 8 = 7831$), canonical SMILES invariance (100.0% valid in RDKit), 0 duplicate conflicts, and label distributions.
+2. **Split & Scaffold Isolation Audit (`src/audit/split_audit.py`)**: Mathematically validates split disjointness, complete coverage ($0 \dots 7822$), zero scaffold overlap via independent RDKit Bemis--Murcko extraction, and the `single_group` acyclic policy (1,775 acyclic molecules placed strictly in train).
+3. **Leakage-Safe Preprocessor (`src/features/preprocessor.py`)**: Resolves preprocessing leakage by fitting feature scaling (`LeakageSafeScaler`, `PartitionPreprocessor`) strictly on training partition indices, preserving binary Morgan bits without scaling.
+4. **Evaluation Metrics & Uncertainty Suite (`src/evaluation/`)**:
+   - `src/evaluation/metrics.py`: Continuous ROC-AUC and PR-AUC (Average Precision), per-endpoint missing label masking, and single-class endpoint handling.
+   - `src/evaluation/aggregation.py`: Macro averaging with explicit uncertainty notation: $\text{Mean} \pm \text{SEM}$ ($K=12$), $\text{SD}$, and 95% Student-$t$ confidence intervals.
+5. **Unified Automated Audit CLI (`src/audit/run_audit.py`)**: One-command reproducibility check executing all 7 criteria and writing `results/experiment_logs/audit_results.json`.
+6. **IEEE Manuscript & Reconciliation (`reports/`)**: Formal IEEE conference manuscript (`reports/ieee_phase1_manuscript.tex`) and claim reconciliation matrix (`reports/ieee_reconciliation.md`).
+
+## Reproduce Student 3 Audit and Verification
+
+Run from repository root in virtual environment:
+
+```bash
+# 1. Execute unified Phase 1 scientific audit suite
+python -m src.audit.run_audit
+
+# 2. Run complete test suite (all 75 tests)
+pytest tests/ -v --tb=short --run-real-data
+```
+
