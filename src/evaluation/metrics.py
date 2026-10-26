@@ -258,3 +258,123 @@ def evaluate_multitask_predictions(
         results[name] = res
 
     return results
+
+
+def compute_threshold_metrics(
+    y_true: Sequence[float | int | None] | np.ndarray,
+    y_score: Sequence[float] | np.ndarray,
+    threshold: float = 0.5,
+) -> dict[str, float | int]:
+    """Compute threshold-dependent metrics at a specified decision threshold.
+
+    Masks out NaNs, applies threshold: y_pred = 1 if y_score >= threshold else 0.
+    Calculates confusion matrix counts (TP, FP, TN, FN), Precision, Recall,
+    Specificity, F1 score, and Balanced Accuracy.
+    Division by zero is handled safely (returning 0.0 or nan).
+
+    Args:
+        y_true: Ground truth binary labels (0, 1, or NaN).
+        y_score: Continuous predicted scores / probabilities in [0, 1].
+        threshold: Classification decision boundary in [0, 1] (default 0.5).
+
+    Returns:
+        Dictionary with confusion counts and threshold-dependent rates.
+    """
+    yt = np.asarray(y_true, dtype=np.float64).flatten()
+    ys = np.asarray(y_score, dtype=np.float64).flatten()
+
+    if len(yt) != len(ys):
+        raise ValueError(f"Length mismatch: len(y_true)={len(yt)}, len(y_score)={len(ys)}")
+
+    valid_mask = ~np.isnan(yt)
+    yt_valid = yt[valid_mask]
+    ys_valid = ys[valid_mask]
+
+    if len(yt_valid) == 0:
+        return {
+            "threshold": threshold,
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0,
+            "precision": float(np.nan),
+            "recall": float(np.nan),
+            "specificity": float(np.nan),
+            "f1": float(np.nan),
+            "balanced_accuracy": float(np.nan),
+        }
+
+    y_pred = (ys_valid >= threshold).astype(np.int32)
+    y_gold = yt_valid.astype(np.int32)
+
+    tp = int(np.sum((y_pred == 1) & (y_gold == 1)))
+    fp = int(np.sum((y_pred == 1) & (y_gold == 0)))
+    tn = int(np.sum((y_pred == 0) & (y_gold == 0)))
+    fn = int(np.sum((y_pred == 0) & (y_gold == 1)))
+
+    n_pos = tp + fn
+    n_neg = tn + fp
+
+    precision = float(tp / (tp + fp)) if (tp + fp) > 0 else 0.0
+    recall = float(tp / n_pos) if n_pos > 0 else float(np.nan)
+    specificity = float(tn / n_neg) if n_neg > 0 else float(np.nan)
+
+    if (precision + recall) > 0 and not np.isnan(precision) and not np.isnan(recall):
+        f1 = float(2.0 * precision * recall / (precision + recall))
+    else:
+        f1 = 0.0
+
+    if not np.isnan(recall) and not np.isnan(specificity):
+        balanced_accuracy = float(0.5 * (recall + specificity))
+    else:
+        balanced_accuracy = float(np.nan)
+
+    return {
+        "threshold": float(threshold),
+        "tp": tp,
+        "fp": fp,
+        "tn": tn,
+        "fn": fn,
+        "precision": round(precision, 4),
+        "recall": round(recall, 4) if not np.isnan(recall) else float(np.nan),
+        "specificity": round(specificity, 4) if not np.isnan(specificity) else float(np.nan),
+        "f1": round(f1, 4),
+        "balanced_accuracy": round(balanced_accuracy, 4) if not np.isnan(balanced_accuracy) else float(np.nan),
+    }
+
+
+def find_optimal_threshold(
+    y_true: Sequence[float | int | None] | np.ndarray,
+    y_score: Sequence[float] | np.ndarray,
+    metric: str = "f1",
+    candidate_thresholds: Sequence[float] | None = None,
+) -> float:
+    """Find the decision threshold that maximizes a metric on validation data.
+
+    Strict Rule: This function must only be fitted on VALIDATION split data,
+    never on test set labels!
+
+    Args:
+        y_true: Validation ground-truth binary labels (0, 1, or NaN).
+        y_score: Validation predicted continuous scores.
+        metric: Metric to optimize: 'f1' (default) or 'balanced_accuracy'.
+        candidate_thresholds: Optional list of thresholds to search.
+
+    Returns:
+        Optimal threshold value float in [0.01, 0.99].
+    """
+    if candidate_thresholds is None:
+        candidate_thresholds = np.linspace(0.05, 0.95, 91)
+
+    best_thresh = 0.5
+    best_score = -1.0
+
+    for thresh in candidate_thresholds:
+        m = compute_threshold_metrics(y_true, y_score, threshold=thresh)
+        score = m.get(metric, 0.0)
+        if not np.isnan(score) and score > best_score:
+            best_score = score
+            best_thresh = float(thresh)
+
+    return round(best_thresh, 4)
+

@@ -1,0 +1,690 @@
+{
+  "n_samples": 7823,
+  "n_endpoints": 12,
+  "endpoints": [
+    "NR-AR",
+    "NR-AR-LBD",
+    "NR-AhR",
+    "NR-Aromatase",
+    "NR-ER",
+    "NR-ER-LBD",
+    "NR-PPAR-gamma",
+    "SR-ARE",
+    "SR-ATAD5",
+    "SR-HSE",
+    "SR-MMP",
+    "SR-p53"
+  ],
+  "overall": {
+    "NR-AR": {
+      "endpoint": "NR-AR",
+      "total_samples": 7823,
+      "observed_samples": 7258,
+      "missing_samples": 565,
+      "missing_percentage": 7.22,
+      "positive_count": 308,
+      "negative_count": 6950,
+      "prevalence": 0.0424,
+      "imbalance_ratio": 22.56,
+      "diversity_status": "highly_imbalanced"
+    },
+    "NR-AR-LBD": {
+      "endpoint": "NR-AR-LBD",
+      "total_samples": 7823,
+      "observed_samples": 6751,
+      "missing_samples": 1072,
+      "missing_percentage": 13.7,
+      "positive_count": 237,
+      "negative_count": 6514,
+      "prevalence": 0.0351,
+      "imbalance_ratio": 27.49,
+      "diversity_status": "highly_imbalanced"
+    },
+    "NR-AhR": {
+      "endpoint": "NR-AhR",
+      "total_samples": 7823,
+      "observed_samples": 6542,
+      "missing_samples": 1281,
+      "missing_percentage": 16.37,
+      "positive_count": 768,
+      "negative_count": 5774,
+      "prevalence": 0.1174,
+      "imbalance_ratio": 7.52,
+      "diversity_status": "sufficient"
+    },
+    "NR-Aromatase": {
+      "endpoint": "NR-Aromatase",
+      "total_samples": 7823,
+      "observed_samples": 5815,
+      "missing_samples": 2008,
+      "missing_percentage": 25.67,
+      "positive_count": 300,
+      "negative_count": 5515,
+      "prevalence": 0.0516,
+      "imbalance_ratio": 18.38,
+      "diversity_status": "highly_imbalanced"
+    },
+    "NR-ER": {
+      "endpoint": "NR-ER",
+      "total_samples": 7823,
+      "observed_samples": 6186,
+      "missing_samples": 1637,
+      "missing_percentage": 20.93,
+      "positive_count": 791,
+      "negative_count": 5395,
+      "prevalence": 0.1279,
+      "imbalance_ratio": 6.82,
+      "diversity_status": "sufficient"
+    },
+    "NR-ER-LBD": {
+      "endpoint": "NR-ER-LBD",
+      "total_samples": 7823,
+      "observed_samples": 6948,
+      "missing_samples": 875,
+      "missing_percentage": 11.18,
+      "positive_count": 349,
+      "negative_count": 6599,
+      "prevalence": 0.0502,
+      "imbalance_ratio": 18.91,
+      "diversity_status": "highly_imbalanced"
+    },
+    "NR-PPAR-gamma": {
+      "endpoint": "NR-PPAR-gamma",
+      "total_samples": 7823,
+      "observed_samples": 6443,
+      "missing_samples": 1380,
+      "missing_percentage": 17.64,
+      "positive_count": 186,
+      "negative_count": 6257,
+      "prevalence": 0.0289,
+      "imbalance_ratio": 33.64,
+      "diversity_status": "highly_imbalanced"
+    },
+    "SR-ARE": {
+      "endpoint": "SR-ARE",
+      "total_samples": 7823,
+      "observed_samples": 5825,
+      "missing_samples": 1998,
+      "missing_percentage": 25.54,
+      "positive_count": 942,
+      "negative_count": 4883,
+      "prevalence": 0.1617,
+      "imbalance_ratio": 5.18,
+      "diversity_status": "sufficient"
+    },
+    "SR-ATAD5": {
+      "endpoint": "SR-ATAD5",
+      "total_samples": 7823,
+      "observed_samples": 7065,
+      "missing_samples": 758,
+      "missing_percentage": 9.69,
+      "positive_count": 264,
+      "negative_count": 6801,
+      "prevalence": 0.0374,
+      "imbalance_ratio": 25.76,
+      "diversity_status": "highly_imbalanced"
+    },
+    "SR-HSE": {
+      "endpoint": "SR-HSE",
+      "total_samples": 7823,
+      "observed_samples": 6460,
+      "missing_samples": 1363,
+      "missing_percentage": 17.42,
+      "positive_count": 372,
+      "negative_count": 6088,
+      "prevalence": 0.0576,
+      "imbalance_ratio": 16.37,
+      "diversity_status": "highly_imbalanced"
+    },
+    "SR-MMP": {
+      "endpoint": "SR-MMP",
+      "total_samples": 7823,
+      "observed_samples": 5804,
+      "missing_samples": 2019,
+      "missing_percentage": 25.81,
+      "positive_count": 918,
+      "negative_count": 4886,
+      "prevalence": 0.1582,
+      "imbalance_ratio": 5.32,
+      "diversity_status": "sufficient"
+    },
+    "SR-p53": {
+      "endpoint": "SR-p53",
+      "total_samples": 7823,
+      "observed_samples": 6767,
+      "missing_samples": 1056,
+      "missing_percentage": 13.5,
+      "positive_count": 423,
+      "negative_count": 6344,
+      "prevalence": 0.0625,
+      "imbalance_ratio": 15.0,
+      "diversity_status": "highly_imbalanced"
+    }
+  },
+  "partitions": {
+    "train": {
+      "NR-AR": {
+        "endpoint": "NR-AR",
+        "total_samples": 6258,
+        "observed_samples": 5828,
+        "missing_samples": 430,
+        "missing_percentage": 6.87,
+        "positive_count": 254,
+        "negative_count": 5574,
+        "prevalence": 0.0436,
+        "imbalance_ratio": 21.94,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-AR-LBD": {
+        "endpoint": "NR-AR-LBD",
+        "total_samples": 6258,
+        "observed_samples": 5502,
+        "missing_samples": 756,
+        "missing_percentage": 12.08,
+        "positive_count": 202,
+        "negative_count": 5300,
+        "prevalence": 0.0367,
+        "imbalance_ratio": 26.24,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-AhR": {
+        "endpoint": "NR-AhR",
+        "total_samples": 6258,
+        "observed_samples": 5308,
+        "missing_samples": 950,
+        "missing_percentage": 15.18,
+        "positive_count": 584,
+        "negative_count": 4724,
+        "prevalence": 0.11,
+        "imbalance_ratio": 8.09,
+        "diversity_status": "sufficient"
+      },
+      "NR-Aromatase": {
+        "endpoint": "NR-Aromatase",
+        "total_samples": 6258,
+        "observed_samples": 4783,
+        "missing_samples": 1475,
+        "missing_percentage": 23.57,
+        "positive_count": 217,
+        "negative_count": 4566,
+        "prevalence": 0.0454,
+        "imbalance_ratio": 21.04,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-ER": {
+        "endpoint": "NR-ER",
+        "total_samples": 6258,
+        "observed_samples": 5068,
+        "missing_samples": 1190,
+        "missing_percentage": 19.02,
+        "positive_count": 648,
+        "negative_count": 4420,
+        "prevalence": 0.1279,
+        "imbalance_ratio": 6.82,
+        "diversity_status": "sufficient"
+      },
+      "NR-ER-LBD": {
+        "endpoint": "NR-ER-LBD",
+        "total_samples": 6258,
+        "observed_samples": 5633,
+        "missing_samples": 625,
+        "missing_percentage": 9.99,
+        "positive_count": 301,
+        "negative_count": 5332,
+        "prevalence": 0.0534,
+        "imbalance_ratio": 17.71,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-PPAR-gamma": {
+        "endpoint": "NR-PPAR-gamma",
+        "total_samples": 6258,
+        "observed_samples": 5294,
+        "missing_samples": 964,
+        "missing_percentage": 15.4,
+        "positive_count": 131,
+        "negative_count": 5163,
+        "prevalence": 0.0247,
+        "imbalance_ratio": 39.41,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-ARE": {
+        "endpoint": "SR-ARE",
+        "total_samples": 6258,
+        "observed_samples": 4882,
+        "missing_samples": 1376,
+        "missing_percentage": 21.99,
+        "positive_count": 727,
+        "negative_count": 4155,
+        "prevalence": 0.1489,
+        "imbalance_ratio": 5.72,
+        "diversity_status": "sufficient"
+      },
+      "SR-ATAD5": {
+        "endpoint": "SR-ATAD5",
+        "total_samples": 6258,
+        "observed_samples": 5731,
+        "missing_samples": 527,
+        "missing_percentage": 8.42,
+        "positive_count": 204,
+        "negative_count": 5527,
+        "prevalence": 0.0356,
+        "imbalance_ratio": 27.09,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-HSE": {
+        "endpoint": "SR-HSE",
+        "total_samples": 6258,
+        "observed_samples": 5325,
+        "missing_samples": 933,
+        "missing_percentage": 14.91,
+        "positive_count": 286,
+        "negative_count": 5039,
+        "prevalence": 0.0537,
+        "imbalance_ratio": 17.62,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-MMP": {
+        "endpoint": "SR-MMP",
+        "total_samples": 6258,
+        "observed_samples": 4774,
+        "missing_samples": 1484,
+        "missing_percentage": 23.71,
+        "positive_count": 716,
+        "negative_count": 4058,
+        "prevalence": 0.15,
+        "imbalance_ratio": 5.67,
+        "diversity_status": "sufficient"
+      },
+      "SR-p53": {
+        "endpoint": "SR-p53",
+        "total_samples": 6258,
+        "observed_samples": 5493,
+        "missing_samples": 765,
+        "missing_percentage": 12.22,
+        "positive_count": 287,
+        "negative_count": 5206,
+        "prevalence": 0.0522,
+        "imbalance_ratio": 18.14,
+        "diversity_status": "highly_imbalanced"
+      }
+    },
+    "val": {
+      "NR-AR": {
+        "endpoint": "NR-AR",
+        "total_samples": 782,
+        "observed_samples": 708,
+        "missing_samples": 74,
+        "missing_percentage": 9.46,
+        "positive_count": 29,
+        "negative_count": 679,
+        "prevalence": 0.041,
+        "imbalance_ratio": 23.41,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-AR-LBD": {
+        "endpoint": "NR-AR-LBD",
+        "total_samples": 782,
+        "observed_samples": 618,
+        "missing_samples": 164,
+        "missing_percentage": 20.97,
+        "positive_count": 21,
+        "negative_count": 597,
+        "prevalence": 0.034,
+        "imbalance_ratio": 28.43,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-AhR": {
+        "endpoint": "NR-AhR",
+        "total_samples": 782,
+        "observed_samples": 602,
+        "missing_samples": 180,
+        "missing_percentage": 23.02,
+        "positive_count": 92,
+        "negative_count": 510,
+        "prevalence": 0.1528,
+        "imbalance_ratio": 5.54,
+        "diversity_status": "sufficient"
+      },
+      "NR-Aromatase": {
+        "endpoint": "NR-Aromatase",
+        "total_samples": 782,
+        "observed_samples": 515,
+        "missing_samples": 267,
+        "missing_percentage": 34.14,
+        "positive_count": 42,
+        "negative_count": 473,
+        "prevalence": 0.0816,
+        "imbalance_ratio": 11.26,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-ER": {
+        "endpoint": "NR-ER",
+        "total_samples": 782,
+        "observed_samples": 552,
+        "missing_samples": 230,
+        "missing_percentage": 29.41,
+        "positive_count": 74,
+        "negative_count": 478,
+        "prevalence": 0.1341,
+        "imbalance_ratio": 6.46,
+        "diversity_status": "sufficient"
+      },
+      "NR-ER-LBD": {
+        "endpoint": "NR-ER-LBD",
+        "total_samples": 782,
+        "observed_samples": 652,
+        "missing_samples": 130,
+        "missing_percentage": 16.62,
+        "positive_count": 21,
+        "negative_count": 631,
+        "prevalence": 0.0322,
+        "imbalance_ratio": 30.05,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-PPAR-gamma": {
+        "endpoint": "NR-PPAR-gamma",
+        "total_samples": 782,
+        "observed_samples": 570,
+        "missing_samples": 212,
+        "missing_percentage": 27.11,
+        "positive_count": 27,
+        "negative_count": 543,
+        "prevalence": 0.0474,
+        "imbalance_ratio": 20.11,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-ARE": {
+        "endpoint": "SR-ARE",
+        "total_samples": 782,
+        "observed_samples": 471,
+        "missing_samples": 311,
+        "missing_percentage": 39.77,
+        "positive_count": 116,
+        "negative_count": 355,
+        "prevalence": 0.2463,
+        "imbalance_ratio": 3.06,
+        "diversity_status": "sufficient"
+      },
+      "SR-ATAD5": {
+        "endpoint": "SR-ATAD5",
+        "total_samples": 782,
+        "observed_samples": 671,
+        "missing_samples": 111,
+        "missing_percentage": 14.19,
+        "positive_count": 35,
+        "negative_count": 636,
+        "prevalence": 0.0522,
+        "imbalance_ratio": 18.17,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-HSE": {
+        "endpoint": "SR-HSE",
+        "total_samples": 782,
+        "observed_samples": 574,
+        "missing_samples": 208,
+        "missing_percentage": 26.6,
+        "positive_count": 42,
+        "negative_count": 532,
+        "prevalence": 0.0732,
+        "imbalance_ratio": 12.67,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-MMP": {
+        "endpoint": "SR-MMP",
+        "total_samples": 782,
+        "observed_samples": 503,
+        "missing_samples": 279,
+        "missing_percentage": 35.68,
+        "positive_count": 88,
+        "negative_count": 415,
+        "prevalence": 0.175,
+        "imbalance_ratio": 4.72,
+        "diversity_status": "sufficient"
+      },
+      "SR-p53": {
+        "endpoint": "SR-p53",
+        "total_samples": 782,
+        "observed_samples": 632,
+        "missing_samples": 150,
+        "missing_percentage": 19.18,
+        "positive_count": 74,
+        "negative_count": 558,
+        "prevalence": 0.1171,
+        "imbalance_ratio": 7.54,
+        "diversity_status": "sufficient"
+      }
+    },
+    "test": {
+      "NR-AR": {
+        "endpoint": "NR-AR",
+        "total_samples": 783,
+        "observed_samples": 722,
+        "missing_samples": 61,
+        "missing_percentage": 7.79,
+        "positive_count": 25,
+        "negative_count": 697,
+        "prevalence": 0.0346,
+        "imbalance_ratio": 27.88,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-AR-LBD": {
+        "endpoint": "NR-AR-LBD",
+        "total_samples": 783,
+        "observed_samples": 631,
+        "missing_samples": 152,
+        "missing_percentage": 19.41,
+        "positive_count": 14,
+        "negative_count": 617,
+        "prevalence": 0.0222,
+        "imbalance_ratio": 44.07,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-AhR": {
+        "endpoint": "NR-AhR",
+        "total_samples": 783,
+        "observed_samples": 632,
+        "missing_samples": 151,
+        "missing_percentage": 19.28,
+        "positive_count": 92,
+        "negative_count": 540,
+        "prevalence": 0.1456,
+        "imbalance_ratio": 5.87,
+        "diversity_status": "sufficient"
+      },
+      "NR-Aromatase": {
+        "endpoint": "NR-Aromatase",
+        "total_samples": 783,
+        "observed_samples": 517,
+        "missing_samples": 266,
+        "missing_percentage": 33.97,
+        "positive_count": 41,
+        "negative_count": 476,
+        "prevalence": 0.0793,
+        "imbalance_ratio": 11.61,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-ER": {
+        "endpoint": "NR-ER",
+        "total_samples": 783,
+        "observed_samples": 566,
+        "missing_samples": 217,
+        "missing_percentage": 27.71,
+        "positive_count": 69,
+        "negative_count": 497,
+        "prevalence": 0.1219,
+        "imbalance_ratio": 7.2,
+        "diversity_status": "sufficient"
+      },
+      "NR-ER-LBD": {
+        "endpoint": "NR-ER-LBD",
+        "total_samples": 783,
+        "observed_samples": 663,
+        "missing_samples": 120,
+        "missing_percentage": 15.33,
+        "positive_count": 27,
+        "negative_count": 636,
+        "prevalence": 0.0407,
+        "imbalance_ratio": 23.56,
+        "diversity_status": "highly_imbalanced"
+      },
+      "NR-PPAR-gamma": {
+        "endpoint": "NR-PPAR-gamma",
+        "total_samples": 783,
+        "observed_samples": 579,
+        "missing_samples": 204,
+        "missing_percentage": 26.05,
+        "positive_count": 28,
+        "negative_count": 551,
+        "prevalence": 0.0484,
+        "imbalance_ratio": 19.68,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-ARE": {
+        "endpoint": "SR-ARE",
+        "total_samples": 783,
+        "observed_samples": 472,
+        "missing_samples": 311,
+        "missing_percentage": 39.72,
+        "positive_count": 99,
+        "negative_count": 373,
+        "prevalence": 0.2097,
+        "imbalance_ratio": 3.77,
+        "diversity_status": "sufficient"
+      },
+      "SR-ATAD5": {
+        "endpoint": "SR-ATAD5",
+        "total_samples": 783,
+        "observed_samples": 663,
+        "missing_samples": 120,
+        "missing_percentage": 15.33,
+        "positive_count": 25,
+        "negative_count": 638,
+        "prevalence": 0.0377,
+        "imbalance_ratio": 25.52,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-HSE": {
+        "endpoint": "SR-HSE",
+        "total_samples": 783,
+        "observed_samples": 561,
+        "missing_samples": 222,
+        "missing_percentage": 28.35,
+        "positive_count": 44,
+        "negative_count": 517,
+        "prevalence": 0.0784,
+        "imbalance_ratio": 11.75,
+        "diversity_status": "highly_imbalanced"
+      },
+      "SR-MMP": {
+        "endpoint": "SR-MMP",
+        "total_samples": 783,
+        "observed_samples": 527,
+        "missing_samples": 256,
+        "missing_percentage": 32.69,
+        "positive_count": 114,
+        "negative_count": 413,
+        "prevalence": 0.2163,
+        "imbalance_ratio": 3.62,
+        "diversity_status": "sufficient"
+      },
+      "SR-p53": {
+        "endpoint": "SR-p53",
+        "total_samples": 783,
+        "observed_samples": 642,
+        "missing_samples": 141,
+        "missing_percentage": 18.01,
+        "positive_count": 62,
+        "negative_count": 580,
+        "prevalence": 0.0966,
+        "imbalance_ratio": 9.35,
+        "diversity_status": "sufficient"
+      }
+    }
+  },
+  "partition_drift": {
+    "NR-AR": {
+      "train_prevalence": 0.0436,
+      "val_prevalence": 0.041,
+      "test_prevalence": 0.0346,
+      "max_drift_from_train": 0.009,
+      "has_single_class_partition": false
+    },
+    "NR-AR-LBD": {
+      "train_prevalence": 0.0367,
+      "val_prevalence": 0.034,
+      "test_prevalence": 0.0222,
+      "max_drift_from_train": 0.0145,
+      "has_single_class_partition": false
+    },
+    "NR-AhR": {
+      "train_prevalence": 0.11,
+      "val_prevalence": 0.1528,
+      "test_prevalence": 0.1456,
+      "max_drift_from_train": 0.0428,
+      "has_single_class_partition": false
+    },
+    "NR-Aromatase": {
+      "train_prevalence": 0.0454,
+      "val_prevalence": 0.0816,
+      "test_prevalence": 0.0793,
+      "max_drift_from_train": 0.0362,
+      "has_single_class_partition": false
+    },
+    "NR-ER": {
+      "train_prevalence": 0.1279,
+      "val_prevalence": 0.1341,
+      "test_prevalence": 0.1219,
+      "max_drift_from_train": 0.0062,
+      "has_single_class_partition": false
+    },
+    "NR-ER-LBD": {
+      "train_prevalence": 0.0534,
+      "val_prevalence": 0.0322,
+      "test_prevalence": 0.0407,
+      "max_drift_from_train": 0.0212,
+      "has_single_class_partition": false
+    },
+    "NR-PPAR-gamma": {
+      "train_prevalence": 0.0247,
+      "val_prevalence": 0.0474,
+      "test_prevalence": 0.0484,
+      "max_drift_from_train": 0.0237,
+      "has_single_class_partition": false
+    },
+    "SR-ARE": {
+      "train_prevalence": 0.1489,
+      "val_prevalence": 0.2463,
+      "test_prevalence": 0.2097,
+      "max_drift_from_train": 0.0974,
+      "has_single_class_partition": false
+    },
+    "SR-ATAD5": {
+      "train_prevalence": 0.0356,
+      "val_prevalence": 0.0522,
+      "test_prevalence": 0.0377,
+      "max_drift_from_train": 0.0166,
+      "has_single_class_partition": false
+    },
+    "SR-HSE": {
+      "train_prevalence": 0.0537,
+      "val_prevalence": 0.0732,
+      "test_prevalence": 0.0784,
+      "max_drift_from_train": 0.0247,
+      "has_single_class_partition": false
+    },
+    "SR-MMP": {
+      "train_prevalence": 0.15,
+      "val_prevalence": 0.175,
+      "test_prevalence": 0.2163,
+      "max_drift_from_train": 0.0663,
+      "has_single_class_partition": false
+    },
+    "SR-p53": {
+      "train_prevalence": 0.0522,
+      "val_prevalence": 0.1171,
+      "test_prevalence": 0.0966,
+      "max_drift_from_train": 0.0649,
+      "has_single_class_partition": false
+    }
+  }
+}
