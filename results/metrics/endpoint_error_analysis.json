@@ -1,0 +1,414 @@
+{
+  "model_analyzed": "random_forest_combined",
+  "endpoint_error_details": {
+    "NR-AR": {
+      "val_threshold": 0.69,
+      "test_roc_auc": 0.6703012912482066,
+      "test_pr_auc": 0.3345360508403705,
+      "test_f1": 0.4242,
+      "test_precision": 0.875,
+      "test_recall": 0.28,
+      "test_balanced_accuracy": 0.6393,
+      "accuracy": 0.9737,
+      "observed_count": 722,
+      "positives": 25,
+      "negatives": 697,
+      "prevalence": 0.0346,
+      "tp": 7,
+      "fp": 1,
+      "tn": 696,
+      "fn": 18,
+      "false_discovery_rate": 0.125,
+      "false_negative_rate": 0.72
+    },
+    "NR-AR-LBD": {
+      "val_threshold": 0.4,
+      "test_roc_auc": 0.8176661264181524,
+      "test_pr_auc": 0.4212691619411433,
+      "test_f1": 0.3226,
+      "test_precision": 0.2941,
+      "test_recall": 0.3571,
+      "test_balanced_accuracy": 0.6688,
+      "accuracy": 0.9667,
+      "observed_count": 631,
+      "positives": 14,
+      "negatives": 617,
+      "prevalence": 0.0222,
+      "tp": 5,
+      "fp": 12,
+      "tn": 605,
+      "fn": 9,
+      "false_discovery_rate": 0.7059,
+      "false_negative_rate": 0.6429
+    },
+    "NR-AhR": {
+      "val_threshold": 0.54,
+      "test_roc_auc": 0.8518115942028985,
+      "test_pr_auc": 0.5391850082851872,
+      "test_f1": 0.4796,
+      "test_precision": 0.4109,
+      "test_recall": 0.5761,
+      "test_balanced_accuracy": 0.7177,
+      "accuracy": 0.818,
+      "observed_count": 632,
+      "positives": 92,
+      "negatives": 540,
+      "prevalence": 0.1456,
+      "tp": 53,
+      "fp": 76,
+      "tn": 464,
+      "fn": 39,
+      "false_discovery_rate": 0.5891,
+      "false_negative_rate": 0.4239
+    },
+    "NR-Aromatase": {
+      "val_threshold": 0.55,
+      "test_roc_auc": 0.7584033613445378,
+      "test_pr_auc": 0.30407208386907647,
+      "test_f1": 0.3,
+      "test_precision": 0.4737,
+      "test_recall": 0.2195,
+      "test_balanced_accuracy": 0.5993,
+      "accuracy": 0.9188,
+      "observed_count": 517,
+      "positives": 41,
+      "negatives": 476,
+      "prevalence": 0.0793,
+      "tp": 9,
+      "fp": 10,
+      "tn": 466,
+      "fn": 32,
+      "false_discovery_rate": 0.5263,
+      "false_negative_rate": 0.7805
+    },
+    "NR-ER": {
+      "val_threshold": 0.54,
+      "test_roc_auc": 0.7256582976117575,
+      "test_pr_auc": 0.4275989123656996,
+      "test_f1": 0.391,
+      "test_precision": 0.4062,
+      "test_recall": 0.3768,
+      "test_balanced_accuracy": 0.6502,
+      "accuracy": 0.8569,
+      "observed_count": 566,
+      "positives": 69,
+      "negatives": 497,
+      "prevalence": 0.1219,
+      "tp": 26,
+      "fp": 38,
+      "tn": 459,
+      "fn": 43,
+      "false_discovery_rate": 0.5938,
+      "false_negative_rate": 0.6232
+    },
+    "NR-ER-LBD": {
+      "val_threshold": 0.54,
+      "test_roc_auc": 0.7299673887724202,
+      "test_pr_auc": 0.48572881847868626,
+      "test_f1": 0.4762,
+      "test_precision": 0.6667,
+      "test_recall": 0.3704,
+      "test_balanced_accuracy": 0.6813,
+      "accuracy": 0.9668,
+      "observed_count": 663,
+      "positives": 27,
+      "negatives": 636,
+      "prevalence": 0.0407,
+      "tp": 10,
+      "fp": 5,
+      "tn": 631,
+      "fn": 17,
+      "false_discovery_rate": 0.3333,
+      "false_negative_rate": 0.6296
+    },
+    "NR-PPAR-gamma": {
+      "val_threshold": 0.38,
+      "test_roc_auc": 0.7072206378014001,
+      "test_pr_auc": 0.20056570185962785,
+      "test_f1": 0.1782,
+      "test_precision": 0.1233,
+      "test_recall": 0.3214,
+      "test_balanced_accuracy": 0.6026,
+      "accuracy": 0.8566,
+      "observed_count": 579,
+      "positives": 28,
+      "negatives": 551,
+      "prevalence": 0.0484,
+      "tp": 9,
+      "fp": 64,
+      "tn": 487,
+      "fn": 19,
+      "false_discovery_rate": 0.8767,
+      "false_negative_rate": 0.6786
+    },
+    "SR-ARE": {
+      "val_threshold": 0.5,
+      "test_roc_auc": 0.6615213800200396,
+      "test_pr_auc": 0.36507138581271903,
+      "test_f1": 0.4152,
+      "test_precision": 0.3158,
+      "test_recall": 0.6061,
+      "test_balanced_accuracy": 0.6288,
+      "accuracy": 0.6419,
+      "observed_count": 472,
+      "positives": 99,
+      "negatives": 373,
+      "prevalence": 0.2097,
+      "tp": 60,
+      "fp": 130,
+      "tn": 243,
+      "fn": 39,
+      "false_discovery_rate": 0.6842,
+      "false_negative_rate": 0.3939
+    },
+    "SR-ATAD5": {
+      "val_threshold": 0.45,
+      "test_roc_auc": 0.7146708463949843,
+      "test_pr_auc": 0.29505492258335536,
+      "test_f1": 0.2157,
+      "test_precision": 0.1429,
+      "test_recall": 0.44,
+      "test_balanced_accuracy": 0.6683,
+      "accuracy": 0.8793,
+      "observed_count": 663,
+      "positives": 25,
+      "negatives": 638,
+      "prevalence": 0.0377,
+      "tp": 11,
+      "fp": 66,
+      "tn": 572,
+      "fn": 14,
+      "false_discovery_rate": 0.8571,
+      "false_negative_rate": 0.56
+    },
+    "SR-HSE": {
+      "val_threshold": 0.47,
+      "test_roc_auc": 0.7738262704413574,
+      "test_pr_auc": 0.36695243879898815,
+      "test_f1": 0.3925,
+      "test_precision": 0.3333,
+      "test_recall": 0.4773,
+      "test_balanced_accuracy": 0.698,
+      "accuracy": 0.8841,
+      "observed_count": 561,
+      "positives": 44,
+      "negatives": 517,
+      "prevalence": 0.0784,
+      "tp": 21,
+      "fp": 42,
+      "tn": 475,
+      "fn": 23,
+      "false_discovery_rate": 0.6667,
+      "false_negative_rate": 0.5227
+    },
+    "SR-MMP": {
+      "val_threshold": 0.51,
+      "test_roc_auc": 0.8457797034960282,
+      "test_pr_auc": 0.5940335003186372,
+      "test_f1": 0.6113,
+      "test_precision": 0.5364,
+      "test_recall": 0.7105,
+      "test_balanced_accuracy": 0.7705,
+      "accuracy": 0.8046,
+      "observed_count": 527,
+      "positives": 114,
+      "negatives": 413,
+      "prevalence": 0.2163,
+      "tp": 81,
+      "fp": 70,
+      "tn": 343,
+      "fn": 33,
+      "false_discovery_rate": 0.4636,
+      "false_negative_rate": 0.2895
+    },
+    "SR-p53": {
+      "val_threshold": 0.52,
+      "test_roc_auc": 0.728726362625139,
+      "test_pr_auc": 0.3350431338299123,
+      "test_f1": 0.3309,
+      "test_precision": 0.2987,
+      "test_recall": 0.371,
+      "test_balanced_accuracy": 0.6389,
+      "accuracy": 0.8551,
+      "observed_count": 642,
+      "positives": 62,
+      "negatives": 580,
+      "prevalence": 0.0966,
+      "tp": 23,
+      "fp": 54,
+      "tn": 526,
+      "fn": 39,
+      "false_discovery_rate": 0.7013,
+      "false_negative_rate": 0.629
+    }
+  },
+  "difficulty_ranking": {
+    "hardest_by_roc_auc": [
+      "SR-ARE",
+      "NR-AR",
+      "NR-PPAR-gamma"
+    ],
+    "easiest_by_roc_auc": [
+      "NR-AR-LBD",
+      "SR-MMP",
+      "NR-AhR"
+    ]
+  },
+  "prevalence_correlations": {
+    "prevalence_vs_roc_auc": 0.2249,
+    "prevalence_vs_pr_auc": 0.5192,
+    "prevalence_vs_f1": 0.6119
+  },
+  "molecular_error_patterns": {
+    "total_test_molecules": 783,
+    "promiscuous_false_negatives": [
+      {
+        "source_row": 141,
+        "mol_id": "TOX25916",
+        "canonical_smiles": "COc1ccccc1OCCNCC(O)COc1cccc2[nH]c3ccccc3c12",
+        "fn_count": 2,
+        "evaluated_count": 11
+      },
+      {
+        "source_row": 249,
+        "mol_id": "TOX22579",
+        "canonical_smiles": "O=C1NCN(c2ccccc2)C12CCN(CCCOc1ccc(F)cc1)CC2",
+        "fn_count": 2,
+        "evaluated_count": 10
+      },
+      {
+        "source_row": 520,
+        "mol_id": "TOX4875",
+        "canonical_smiles": "O=C(OCC1CO1)C1CCCCC1C(=O)OCC1CO1",
+        "fn_count": 3,
+        "evaluated_count": 11
+      },
+      {
+        "source_row": 542,
+        "mol_id": "TOX26257",
+        "canonical_smiles": "S=C1SCN(Cc2ccccc2)CN1Cc1ccccc1",
+        "fn_count": 3,
+        "evaluated_count": 10
+      },
+      {
+        "source_row": 681,
+        "mol_id": "TOX3569",
+        "canonical_smiles": "CN(CCOc1ccc(CC2SC(=O)NC2=O)cc1)c1ccccn1",
+        "fn_count": 3,
+        "evaluated_count": 11
+      },
+      {
+        "source_row": 706,
+        "mol_id": "TOX26249",
+        "canonical_smiles": "CN1C(=O)CN2CCc3ccccc3C2c2cc(Cl)ccc21",
+        "fn_count": 2,
+        "evaluated_count": 9
+      },
+      {
+        "source_row": 909,
+        "mol_id": "TOX7345",
+        "canonical_smiles": "c1ccc(B(c2ccccc2)c2ccccc2)cc1",
+        "fn_count": 2,
+        "evaluated_count": 10
+      },
+      {
+        "source_row": 942,
+        "mol_id": "TOX119",
+        "canonical_smiles": "Cn1cnc([N+](=O)[O-])c1Sc1ncnc2nc[nH]c12",
+        "fn_count": 2,
+        "evaluated_count": 10
+      },
+      {
+        "source_row": 1025,
+        "mol_id": "TOX28889",
+        "canonical_smiles": "OC[C@H]1O[C@H](O[C@H]2[C@H](O)[C@@H](O)[C@@H](O[C@H]3[C@H](O)[C@@H](O)[C@@H](O)O[C@@H]3CO)O[C@@H]2CO)[C@H](O)[C@@H](O)[C@@H]1O",
+        "fn_count": 3,
+        "evaluated_count": 9
+      },
+      {
+        "source_row": 1101,
+        "mol_id": "TOX1805",
+        "canonical_smiles": "O=C(/C=C/C=C/c1ccc2c(c1)OCO2)N1CCCCC1",
+        "fn_count": 2,
+        "evaluated_count": 10
+      }
+    ],
+    "promiscuous_false_positives": [
+      {
+        "source_row": 135,
+        "mol_id": "TOX4937",
+        "canonical_smiles": "c1ccc2c(c1)Oc1ccccc1S2",
+        "fp_count": 3,
+        "evaluated_count": 12
+      },
+      {
+        "source_row": 165,
+        "mol_id": "TOX27262",
+        "canonical_smiles": "Cc1cc(SC2=C(O)C[C@@](CCc3ccc(N)cc3)(C(C)C)OC2=O)c(C(C)(C)C)cc1CO",
+        "fp_count": 3,
+        "evaluated_count": 10
+      },
+      {
+        "source_row": 166,
+        "mol_id": "TOX27263",
+        "canonical_smiles": "CCn1nc(C)c2c1C(=O)NCC(c1ccc(O)cc1)=N2",
+        "fp_count": 3,
+        "evaluated_count": 10
+      },
+      {
+        "source_row": 386,
+        "mol_id": "TOX13402",
+        "canonical_smiles": "O=P(O)(OCc1ccccc1)OCc1ccccc1",
+        "fp_count": 6,
+        "evaluated_count": 12
+      },
+      {
+        "source_row": 499,
+        "mol_id": "TOX18926",
+        "canonical_smiles": "O=C(OCc1ccccc1)C(=O)OCc1ccccc1",
+        "fp_count": 3,
+        "evaluated_count": 12
+      },
+      {
+        "source_row": 804,
+        "mol_id": "TOX3881",
+        "canonical_smiles": "Clc1ccccc1-c1nnc(-c2ccccc2Cl)nn1",
+        "fp_count": 4,
+        "evaluated_count": 11
+      },
+      {
+        "source_row": 857,
+        "mol_id": "TOX24670",
+        "canonical_smiles": "Clc1cccc(Cl)c1N=C1NCCN1",
+        "fp_count": 4,
+        "evaluated_count": 12
+      },
+      {
+        "source_row": 914,
+        "mol_id": "TOX3508",
+        "canonical_smiles": "CC[N+]1(CC)CCC(=C(c2ccccc2)c2ccccc2)C1C",
+        "fp_count": 3,
+        "evaluated_count": 12
+      },
+      {
+        "source_row": 927,
+        "mol_id": "TOX25598",
+        "canonical_smiles": "COc1cc2nc(N3CCN(C(=O)C4COc5ccccc5O4)CC3)nc(N)c2cc1OC",
+        "fp_count": 3,
+        "evaluated_count": 11
+      },
+      {
+        "source_row": 1262,
+        "mol_id": "TOX22477",
+        "canonical_smiles": "Cc1cccc(N(C)C(=S)Oc2ccc3ccccc3c2)c1",
+        "fp_count": 4,
+        "evaluated_count": 8
+      }
+    ]
+  },
+  "generated_figures": [
+    "results/figures/endpoint_performance_roc_pr.png",
+    "results/figures/prevalence_vs_performance.png",
+    "results/figures/model_feature_comparison_bars.png"
+  ]
+}
