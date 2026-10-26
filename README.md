@@ -99,3 +99,60 @@ Executed validation:
 - All ten generated figures were visually inspected; counts and histogram totals were reconciled with the audited populations.
 
 The ring-count distribution contains large algorithm-defined values for symmetric cyclic structures (maximum 264 in this RDKit version). These values are retained. The ring plot uses an explicitly labelled symlog x-axis above 10; they must not be interpreted as independent cycle counts.
+
+---
+
+# Student 2 — Molecular Features and Scaffold Splitting
+
+Implementation of circular chemical fingerprints, physicochemical molecular descriptors, combined feature representations, and Bemis–Murcko scaffold-based dataset splitting for **Molecular Toxicity Prediction via Chemical Fingerprints and Molecular Graph Networks**.
+
+## Student 2 Architecture & Responsibilities
+
+1. **Morgan Fingerprints (`src/features/fingerprints.py`)**: Circular topological fingerprints computed using modern RDKit `rdFingerprintGenerator.GetMorganGenerator(radius=2, fpSize=2048)`. Produces binary bit-vectors (dtype `uint8`) and optional count fingerprints (dtype `uint32`).
+2. **Molecular Descriptors (`src/features/descriptors.py`)**: Calculates 9 standard physicochemical descriptors (`mol_weight`, `logp`, `tpsa`, `num_h_donors`, `num_h_acceptors`, `num_rotatable_bonds`, `ring_count`, `heavy_atom_count`, `fraction_csp3`).
+3. **Combined Representation (`src/features/build_features.py`)**: Assembles Morgan fingerprints, 9 descriptors, and concatenated representations (2,057 dimensions, float32) with row alignment (`feature_row_ids.json`) and audit manifest (`feature_manifest.json`).
+4. **Scaffold Splitting (`src/data/split_data.py`)**: Deterministic Bemis–Murcko scaffold grouping (`target: 80% train, 10% val, 10% test`, seed `42`). Guarantees zero scaffold leakage across partitions.
+5. **Split Integrity Tests (`tests/test_split_integrity.py`)**: Independent test suite validating partition disjointness, completeness, row alignment, and zero scaffold overlap.
+
+## Reproduce Feature Extraction and Splitting
+
+Run in virtual environment from repository root:
+
+```bash
+# 1. Standalone Morgan fingerprint generation
+python -m src.features.fingerprints --input data/processed/tox21_cleaned.csv --output data/processed/features/morgan_r2_2048.npy --radius 2 --n-bits 2048
+
+# 2. Standalone molecular descriptor calculation
+python -m src.features.descriptors --input data/processed/tox21_cleaned.csv --output data/processed/features/descriptors_9.npy
+
+# 3. Assemble all 3 feature matrices, row IDs, and manifest
+python -m src.features.build_features --input data/processed/tox21_cleaned.csv --output-dir data/processed/features
+
+# 4. Deterministic scaffold splitting
+python -m src.data.split_data --input data/processed/tox21_cleaned.csv --output data/processed/scaffold_split_indices.json --seed 42
+
+# 5. Execute full test suite
+pytest tests/ -v --tb=short
+```
+
+## Student 2 Outputs & Manifest
+
+| Location | Shape / Contents | Dtype | Description |
+| :--- | :---: | :---: | :--- |
+| `data/processed/features/morgan_r2_2048.npy` | $(7823, 2048)$ | `uint8` | Binary Morgan fingerprints ($r=2$, ECFP4 equivalent) |
+| `data/processed/features/descriptors_9.npy` | $(7823, 9)$ | `float64` | 9 physicochemical molecular descriptors |
+| `data/processed/features/combined_features.npy` | $(7823, 2057)$ | `float32` | Concatenation of Morgan bits and 9 descriptors |
+| `data/processed/features/feature_row_ids.json` | 7,823 records | JSON | Alignment mapping of `source_row` and `mol_id` |
+| `data/processed/features/feature_manifest.json` | Metadata & hashes | JSON | Checksums, dimensions, and parameter provenance |
+| `data/processed/scaffold_split_indices.json` | Train/Val/Test indices | JSON | Disjoint scaffold split indices and row IDs |
+| `reports/student2_integration_audit.md` | Verification report | Markdown | Upstream audit and verification of Student 1 |
+| `reports/student2_features_and_splitting.md` | Research report | Markdown | Technical report on features and scaffold splitting |
+
+## Measured Scaffold Split Proportions (Seed 42)
+
+- **Total Valid Molecules:** 7,823
+- **Total Unique Scaffolds:** 2,325 (Acyclic empty scaffold `""`: 1,775 molecules)
+- **Train Partition:** 6,258 molecules (**79.995%**) — 760 scaffolds
+- **Validation Partition:** 782 molecules (**9.996%**) — 782 scaffolds
+- **Test Partition:** 783 molecules (**10.009%**) — 783 scaffolds
+- **Scaffold Leakage:** **0** overlapping scaffolds across train, validation, and test partitions.
