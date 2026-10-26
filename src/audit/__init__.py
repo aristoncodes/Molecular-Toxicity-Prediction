@@ -12,6 +12,11 @@ __all__ = [
     "audit_canonical_smiles_integrity",
     "audit_label_encodings_and_missingness",
     "run_dataset_audit",
+    "audit_split_disjointness_and_coverage",
+    "audit_scaffold_isolation",
+    "audit_acyclic_molecule_handling",
+    "audit_row_identifier_alignment",
+    "run_split_audit",
 ]
 
 
@@ -26,4 +31,14 @@ def __getattr__(name: str) -> Any:
         from src.audit import dataset_audit
 
         return getattr(dataset_audit, name)
+    if name in (
+        "audit_split_disjointness_and_coverage",
+        "audit_scaffold_isolation",
+        "audit_acyclic_molecule_handling",
+        "audit_row_identifier_alignment",
+        "run_split_audit",
+    ):
+        from src.audit import split_audit
+
+        return getattr(split_audit, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
