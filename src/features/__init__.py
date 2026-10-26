@@ -4,6 +4,9 @@ Student 2 Module:
 - Morgan chemical fingerprints (binary and count)
 - 9 Physicochemical molecular descriptors
 - Combined feature representations and manifests
+
+Student 3 Module:
+- Leakage-safe partition preprocessor and scalers
 """
 
 from typing import Any
@@ -19,6 +22,9 @@ __all__ = [
     "DESCRIPTOR_METADATA",
     "build_feature_representations",
     "generate_feature_names",
+    "LeakageSafeScaler",
+    "PartitionPreprocessor",
+    "audit_for_preprocessing_leakage",
 ]
 
 
@@ -48,4 +54,12 @@ def __getattr__(name: str) -> Any:
         from src.features import build_features
 
         return getattr(build_features, name)
+    if name in (
+        "LeakageSafeScaler",
+        "PartitionPreprocessor",
+        "audit_for_preprocessing_leakage",
+    ):
+        from src.features import preprocessor
+
+        return getattr(preprocessor, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
