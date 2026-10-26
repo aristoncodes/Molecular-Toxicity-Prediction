@@ -11,6 +11,9 @@ __all__ = [
     "compute_pr_auc",
     "evaluate_endpoint",
     "evaluate_multitask_predictions",
+    "aggregate_endpoint_metrics",
+    "compute_uncertainty_stats",
+    "format_metric_with_uncertainty",
 ]
 
 
@@ -26,7 +29,7 @@ def __getattr__(name: str) -> Any:
         return getattr(metrics, name)
     if name in (
         "aggregate_endpoint_metrics",
-        "compute_macro_metrics",
+        "compute_uncertainty_stats",
         "format_metric_with_uncertainty",
     ):
         from src.evaluation import aggregation
