@@ -1,0 +1,147 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Molecular Toxicity Prediction via Chemical Fingerprints and Molecular Graph Networks: Phase 1 Independent Audit and Baseline Methodology}
+
+\author{\IEEEauthorblockN{Student 1, Student 2, Student 3}
+\IEEEauthorblockA{\textit{Department of Computer Science and Engineering} \\
+\textit{B.Tech Capstone Project} \\
+Date: October 2026}
+}
+
+\maketitle
+
+\begin{abstract}
+Predicting chemical toxicity in silico is vital for pharmaceutical lead prioritization and computational toxicology. In Phase 1 of this project, we establish a mathematically sound, leak-free data acquisition, chemical structure validation, feature extraction, and scaffold-partitioning benchmark on the Tox21 dataset across 12 toxicological endpoints. We independently audit the pipeline: out of 7,831 raw records, exactly 8 structures with unparsable valence violations are excluded, leaving 7,823 valid, unique canonical structures. We assemble 2,048-bit Morgan circular fingerprints ($r=2$), nine physicochemical molecular descriptors, and a 2,057-dimensional combined representation. Bemis--Murcko scaffold splitting achieves 6,258 training (79.995\%), 782 validation (9.996\%), and 783 testing (10.009\%) instances with strict zero scaffold overlap across partitions. We formally reconcile earlier reporting, distinguishing verified data and feature deliverables from Phase 2 model benchmarks, and define rigorous evaluation metrics with unambiguous uncertainty quantification ($\text{Mean} \pm \text{SEM}$).
+\end{abstract}
+
+\begin{IEEEkeywords}
+Tox21, molecular toxicity, Morgan fingerprints, Bemis--Murcko scaffold split, data leakage, independent audit.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Evaluating chemical compounds for biological toxicity is a critical component of drug discovery and environmental safety assessment. In vitro high-throughput screening assays, such as those conducted during the Tox21 Data Challenge \cite{tox21_challenge}, provide quantitative biological responses across nuclear receptor (NR) and stress response (SR) signaling pathways.
+
+Phase 1 of this investigation establishes an auditable, reproducible foundation for downstream machine learning and molecular graph neural networks. This report presents an independent audit of data curation, feature matrix assembly, scaffold splitting, and evaluation methodology, resolving prior reporting ambiguities and preventing data leakage.
+
+\section{Dataset Acquisition and Preprocessing Audit}
+
+\subsection{Raw Provenance and Accounting}
+The upstream dataset was obtained from the DeepChem repository (\texttt{tox21.csv.gz}, 122,925 bytes) with reference SHA-256 hash \texttt{45d09792492ce049039dd24aa27b07fc79ce20c573187d4d90bcd178c0c0d360}.
+The raw file contains 7,831 records across 14 columns. Structure parsing with RDKit 2026.9.1 identified:
+\begin{itemize}
+    \item \textbf{Valid structures:} 7,823 molecules.
+    \item \textbf{Excluded structures:} Exactly 8 records, all attributable to unparsable organo-aluminum valence anomalies (e.g., \texttt{[AlH3]}).
+    \item \textbf{Duplicate structures:} 0 duplicate canonical SMILES groups; all 7,823 valid structures represent distinct chemical graphs.
+    \item \textbf{Accounting reconciliation:} $7,823 + 8 = 7,831$ raw rows ($100.0\%$).
+\end{itemize}
+
+\subsection{Endpoint Label Distributions}
+Tox21 evaluates 12 target assay endpoints. Labels are strictly binary ($0$ or $1$) or unobserved ($\text{NaN}$). Missing assay values are preserved and never imputed. Table~\ref{tab:endpoints} summarizes the audited label distribution.
+
+\begin{table}[htbp]
+\caption{Audited Label Distributions Across 12 Tox21 Endpoints}
+\begin{center}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Endpoint} & \textbf{Active (1)} & \textbf{Inactive (0)} & \textbf{Missing} & \textbf{Observed} & \textbf{Prevalence} \\
+\midrule
+NR-AR & 309 & 6,956 & 566 & 7,265 & 4.25\% \\
+NR-AR-LBD & 237 & 6,521 & 1,073 & 6,758 & 3.51\% \\
+NR-AhR & 768 & 5,781 & 1,282 & 6,549 & 11.73\% \\
+NR-Aromatase & 300 & 5,521 & 2,010 & 5,821 & 5.15\% \\
+NR-ER & 793 & 5,400 & 1,638 & 6,193 & 12.80\% \\
+NR-ER-LBD & 350 & 6,605 & 876 & 6,955 & 5.03\% \\
+NR-PPAR-$\gamma$ & 186 & 6,264 & 1,381 & 6,450 & 2.88\% \\
+SR-ARE & 942 & 4,890 & 1,999 & 5,832 & 16.15\% \\
+SR-ATAD5 & 264 & 6,808 & 759 & 7,072 & 3.73\% \\
+SR-HSE & 372 & 6,095 & 1,364 & 6,467 & 5.75\% \\
+SR-MMP & 918 & 4,892 & 2,021 & 5,810 & 15.80\% \\
+SR-p53 & 423 & 6,351 & 1,057 & 6,774 & 6.24\% \\
+\bottomrule
+\end{tabular}
+\label{tab:endpoints}
+\end{center}
+\end{table}
+
+\section{Feature Representations}
+Three feature representations were extracted and persisted:
+\begin{enumerate}
+    \item \textbf{Morgan Fingerprints:} Extended-Connectivity Fingerprints (ECFP4 equivalent) with radius $r=2$ and bit length $n=2048$ (\texttt{uint8}, shape $7823 \times 2048$).
+    \item \textbf{Physicochemical Descriptors:} Nine standardized continuous descriptors (molecular weight, Wildman--Crippen $\log P$, TPSA, H-bond donors, H-bond acceptors, rotatable bonds, ring count, heavy atom count, fraction $sp^3$ carbons) (\texttt{float64}, shape $7823 \times 9$).
+    \item \textbf{Combined Matrix:} Horizontal concatenation yielding a 2,057-dimensional representation (\texttt{float32}, shape $7823 \times 2057$).
+\end{enumerate}
+
+\section{Scaffold Splitting and Leakage Prevention}
+
+\subsection{Bemis--Murcko Scaffold Partitioning}
+To evaluate out-of-distribution generalization to structurally novel chemical series, dataset splitting was performed using Bemis--Murcko scaffolds \cite{bemis_murcko}.
+Under random splitting, molecules from the same congeneric series are partitioned across train and test sets, inflating performance via scaffold memorization.
+
+\subsection{Acyclic Molecule Policy}
+Acyclic molecules lack rings, yielding an empty Murcko scaffold string \texttt{""}. In Tox21, 1,775 of 7,823 molecules (22.69\%) are acyclic.
+Under the audited \texttt{single\_group} policy, all acyclic molecules are placed into the training partition. This ensures validation and test partitions evaluate true structural generalization across novel cyclic ring architectures.
+
+\subsection{Partition Accounting}
+Table~\ref{tab:splits} details the audited split proportions and scaffold isolation. Independent re-extraction of Bemis--Murcko scaffolds confirms \textbf{zero scaffold overlap} across train, validation, and test partitions.
+
+\begin{table}[htbp]
+\caption{Audited Scaffold Split Accounting (Seed 42)}
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Partition} & \textbf{Molecule Count} & \textbf{Proportion} & \textbf{Scaffolds} & \textbf{Scaffold Leakage} \\
+\midrule
+Train & 6,258 & 79.995\% & 760 (incl. \texttt{""}) & 0 \\
+Validation & 782 & 9.996\% & 782 & 0 \\
+Test & 783 & 10.009\% & 783 & 0 \\
+\midrule
+Total & 7,823 & 100.000\% & 2,325 & 0 \\
+\bottomrule
+\end{tabular}
+\label{tab:splits}
+\end{center}
+\end{table}
+
+\subsection{Preprocessing Leakage Prevention}
+We identified and resolved a critical preprocessing leakage hazard: fitting continuous feature scalers (e.g., standardizing the 9 descriptors) across the entire dataset prior to splitting leaks test distribution parameters ($\mu, \sigma$) into training.
+We implemented \texttt{PartitionPreprocessor}, ensuring normalization statistics are fitted strictly on training indices and applied out-of-sample without modifying binary Morgan fingerprint bits.
+
+\section{Evaluation Metrics and Uncertainty Methodology}
+To avoid literature ambiguity where ``$\pm$'' conflates standard deviation ($\text{SD}$), standard error of the mean ($\text{SEM}$), and confidence intervals ($\text{CI}_{95\%}$), our evaluation framework establishes:
+\begin{align}
+\text{Macro Mean} &= \frac{1}{K} \sum_{k=1}^K \text{Metric}_k \\
+\text{SEM} &= \frac{\text{SD}}{\sqrt{K}} = \sqrt{\frac{\sum_{k=1}^K (\text{Metric}_k - \text{Mean})^2}{K(K-1)}}
+\end{align}
+PR-AUC is defined via Average Precision rather than naive trapezoidal rule. Single-class partitions are caught and reported as undefined ($\text{NaN}$) rather than returning distorted zero/one values.
+
+\section{Audit Findings and Scientific Reconciliations}
+An exhaustive comparison between project claims and repository code yielded the following findings:
+\begin{enumerate}
+    \item \textbf{Verified Deliverables:} Tox21 data acquisition, 8 unparsable exclusions, 7,823 canonical structures, Morgan fingerprints, 9 descriptors, 2,057-dim combined representations, and deterministic scaffold splitting are 100\% reproduced and verified by 56 automated tests.
+    \item \textbf{Reconciliation of Unverified Model Claims:} No baseline model implementations (Logistic Regression, Random Forest, XGBoost) or saved prediction logs existed in the repository prior to Student 3's evaluation module. Any prior completion report claims regarding model benchmark test scores were premature and are cataloged as Phase 2 deliverables.
+\end{enumerate}
+
+\section{Conclusion}
+Phase 1 data engineering, chemical structure curation, and scaffold splitting have been rigorously validated. The codebase is mathematically sound, leak-free, and prepared for Phase 2 baseline classifier benchmarking and molecular graph neural networks.
+
+\begin{thebibliography}{00}
+\bibitem{tox21_challenge} R. Huang et al., ``Modelling the Tox21 data challenge mutation and nuclear receptor assays,'' \emph{Frontiers in Environmental Science}, vol. 3, p. 85, 2016.
+\bibitem{bemis_murcko} G. W. Bemis and M. A. Murcko, ``The properties of known drugs. 1. Molecular frameworks,'' \emph{Journal of Medicinal Chemistry}, vol. 39, no. 15, pp. 2887--2893, 1996.
+\bibitem{rogers_hahn} D. Rogers and M. Hahn, ``Extended-connectivity fingerprints,'' \emph{Journal of Chemical Information and Modeling}, vol. 50, no. 5, pp. 742--754, 2010.
+\end{thebibliography}
+
+\end{document}
