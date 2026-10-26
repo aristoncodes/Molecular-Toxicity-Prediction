@@ -6,6 +6,10 @@ Student 2 responsibilities:
 - Combined feature representations and manifests
 """
 
+from src.features.build_features import (
+    build_feature_representations,
+    generate_feature_names,
+)
 from src.features.descriptors import (
     DESCRIPTOR_METADATA,
     DESCRIPTOR_NAMES,
@@ -28,4 +32,6 @@ __all__ = [
     "compute_descriptors_matrix",
     "DESCRIPTOR_NAMES",
     "DESCRIPTOR_METADATA",
+    "build_feature_representations",
+    "generate_feature_names",
 ]
