@@ -178,6 +178,7 @@ pytest tests/ -v --run-real-data
 | [`reports/phase1_model_evaluation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/phase1_model_evaluation.md) | Multi-task test evaluation, threshold tuning, and endpoint error diagnostics |
 | [`reports/literature_review.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/literature_review.md) | QSAR foundations, topological fingerprints, and GNN motivation (15 citations) |
 | [`reports/viva_preparation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/viva_preparation.md) | Technical defense guide covering cheminformatics theory and validation protocols |
+| [`reports/contributions/`](file:///Users/shouryapratap/Documents/aml-dl/reports/contributions/) | Dedicated individual contribution reports for Students 1 through 5 |
 | [`reports/audit/`](file:///Users/shouryapratap/Documents/aml-dl/reports/audit/) | Comprehensive scientific audit, benchmark reconciliation, and rubric compliance records |
 
 ---
