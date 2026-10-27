@@ -193,7 +193,7 @@ Phase 1 audit deliverables are in `reports/audit/`:
 
 ## Team Roles and Responsibilities
 
-### Student 1 — Dataset, Preprocessing and EDA
+### Student 1 — Amogha Raj Sindur · Dataset, Preprocessing and EDA
 **Data owner**
 
 **Responsibilities**
@@ -213,7 +213,7 @@ Phase 1 audit deliverables are in `reports/audit/`:
 
 ---
 
-### Student 2 — Molecular Features and Split Integrity
+### Student 2 — Bulbul Agarwalla · Molecular Features and Split Integrity
 **Feature owner**
 
 **Responsibilities**
@@ -233,7 +233,7 @@ Phase 1 audit deliverables are in `reports/audit/`:
 
 ---
 
-### Student 3 — Classical ML Models and Experiments
+### Student 3 — Shourya Pratap · Classical ML Models and Experiments
 **Model owner**
 
 **Responsibilities**
@@ -252,7 +252,7 @@ Phase 1 audit deliverables are in `reports/audit/`:
 
 ---
 
-### Student 4 — Evaluation, Statistics and Final Audit
+### Student 4 — Kanishka Dubey · Evaluation, Statistics and Final Audit
 **Validation owner**
 
 **Responsibilities**
@@ -273,7 +273,7 @@ Phase 1 audit deliverables are in `reports/audit/`:
 
 ---
 
-### Student 5 — Literature Review, IEEE Report and Presentation
+### Student 5 — Aditya Yadav · Literature Review, IEEE Report and Presentation
 **Documentation owner**
 
 **Responsibilities**
