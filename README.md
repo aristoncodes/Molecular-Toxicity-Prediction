@@ -209,8 +209,6 @@ Phase 1 audit deliverables are in `reports/audit/`:
 - `results/figures/eda/`
 - Dataset and EDA sections of the IEEE report.
 
-**Viva preparation:** Tox21 endpoints, missing labels, SMILES, canonicalization and class imbalance.
-
 ---
 
 ### Student 2 — Bulbul Agarwalla · Molecular Features and Split Integrity
@@ -229,8 +227,6 @@ Phase 1 audit deliverables are in `reports/audit/`:
 - `src/data/split_data.py`
 - `data/processed/scaffold_split_indices.json`
 
-**Viva preparation:** Molecular fingerprints, descriptors, Bemis–Murcko scaffolds and data leakage.
-
 ---
 
 ### Student 3 — Shourya Pratap · Classical ML Models and Experiments
@@ -247,8 +243,6 @@ Phase 1 audit deliverables are in `reports/audit/`:
 - `src/models/ml/`
 - `src/evaluation/run_experiments.py` (model execution component)
 - Saved model configurations and experiment outputs.
-
-**Viva preparation:** Model assumptions, class weighting, overfitting and why the models are suitable baselines.
 
 ---
 
@@ -269,8 +263,6 @@ Phase 1 audit deliverables are in `reports/audit/`:
 - `tests/` audit tests
 - `results/metrics/` and final audit checklist.
 
-**Viva preparation:** ROC-AUC vs PR-AUC, macro averaging, uncertainty, scaffold generalization and evaluation leakage.
-
 ---
 
 ### Student 5 — Aditya Yadav · Literature Review, IEEE Report and Presentation
@@ -289,5 +281,3 @@ Phase 1 audit deliverables are in `reports/audit/`:
 - `reports/ieee_report/`
 - `reports/presentation.md` or final slide deck
 - `README.md` and `reports/viva_preparation.md`
-
-**Viva preparation:** Research gap, related work, methodology, limitations and interpretation of results.
