@@ -9,3 +9,4 @@ data/raw/*
 data/processed/*
 results/experiment_logs/*
 results/figures/eda/*
+results/models/
