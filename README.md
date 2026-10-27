@@ -182,7 +182,73 @@ Run from repository root in virtual environment:
 # 1. Execute unified Phase 1 scientific audit suite
 python -m src.audit.run_audit
 
-# 2. Run complete test suite (all 75 tests)
+# 2. Run complete test suite (all 117 tests)
 pytest tests/ -v --tb=short --run-real-data
 ```
+
+---
+
+# Student 4 — Multi-Task Baseline Benchmarking and Evaluation
+
+Implementation of comprehensive feature validation, multi-task endpoint diagnostics, baseline machine learning benchmarks (Logistic Regression, Random Forest, XGBoost), threshold tuning, error analysis, and evaluation figures for **Molecular Toxicity Prediction via Chemical Fingerprints and Molecular Graph Networks**.
+
+## Student 4 Architecture & Deliverables
+
+1. **Feature Validation Suite (`src/evaluation/feature_validation.py`)**: Validates feature matrix dimensions, value domains, bit sparsity, NaN/Inf detection, and constant-bit exclusion across all three feature representations.
+2. **Endpoint Label Diagnostics (`src/evaluation/endpoint_analysis.py`)**: Quantifies active/inactive/missing label counts, positive prevalence, and class imbalance per endpoint.
+3. **Multi-Task Baseline Modeling (`src/evaluation/model_evaluation.py`)**: Trains Logistic Regression, Random Forest (100 estimators, class_weight=balanced), and XGBoost (scale_pos_weight per endpoint) across Morgan, Descriptors, and Combined feature sets. Validation-only threshold tuning maximizes F1-score.
+4. **Error Analysis (`src/evaluation/error_analysis.py`)**: Identifies challenging molecules, false negative hot-spots per endpoint, and generates prevalence vs. performance analysis.
+5. **Evaluation Figures**: Three publication-quality figures visualizing per-endpoint ROC-AUC/PR-AUC, model comparison bars, and prevalence vs. PR-AUC correlation.
+
+## Reproduce Student 4 Benchmarks
+
+```bash
+# Run full multi-task benchmark (9 model configurations)
+python -m src.evaluation.model_evaluation
+
+# Run feature validation
+python -m src.evaluation.feature_validation
+```
+
+## Phase 1 Champion Benchmark Results (Test Partition, Out-of-Sample)
+
+| Model | Feature Set | Macro ROC-AUC (Mean ± SEM) | Macro PR-AUC (Mean ± SEM) | Balanced Acc | Macro F1 |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Random Forest** | **Combined** | **0.7488 ± 0.0181** | **0.3891 ± 0.0320** | **0.6636** | **0.3781** |
+| XGBoost | Combined | 0.7456 ± 0.0179 | 0.3495 ± 0.0406 | 0.6485 | 0.3591 |
+| Random Forest | Morgan | 0.7208 ± 0.0199 | 0.3458 ± 0.0316 | 0.6475 | 0.3712 |
+| Logistic Regression | Descriptors | 0.7203 ± 0.0169 | 0.1968 ± 0.0397 | 0.6188 | 0.2472 |
+
+All 9 prediction CSVs and full benchmark summary JSON are in `results/metrics/`.
+
+---
+
+# Phase 1 QA Audit — Senior ML Engineer
+
+Comprehensive independent audit conducted across all four student contributions, verifying scientific correctness, reproducibility, leakage prevention, and submission readiness.
+
+## Audit Deliverables (`reports/audit/`)
+
+| Document | Contents |
+| :--- | :--- |
+| `phase1_requirements_audit.md` | CSAI rubric compliance — 9/9 criteria PASS |
+| `scientific_validation_audit.md` | Deep-dive dataset, features, splits, metrics, and models audit |
+| `contribution_and_integration_audit.md` | Verified Student 1–4 commit-level contribution accounting |
+| `folder_structure_audit.md` | Annotated repository directory layout and change justifications |
+| `issue_register.md` | 6 issues tracked (all Critical/High resolved) |
+| `final_submission_checklist.md` | Granular Phase 1 submission checklist |
+| `final_readiness_report.md` | Executive readiness declaration — **READY FOR FINAL DOCUMENTATION** |
+
+## Additional Academic Documents (`reports/`)
+
+| Document | Contents |
+| :--- | :--- |
+| `literature_review.md` | Comprehensive QSAR, fingerprint, scaffold splitting, and GNN literature review with 15 citations |
+| `viva_preparation.md` | 13 technical exam questions with full mathematical answers for oral defense |
+
+## Final Phase 1 Test Suite Status
+
+- `pytest tests/ -v --run-real-data`: **117 passed, 0 failed** (9.48 seconds)
+- `python -m src.audit.run_audit`: **7/7 scientific checks pass** (4.5 seconds)
+- **Overall Phase 1 Status:** ✅ READY FOR FINAL DOCUMENTATION
 
