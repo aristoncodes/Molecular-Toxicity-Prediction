@@ -156,43 +156,29 @@ Prediction CSVs: `results/metrics/predictions_<model>_<features>.csv`
 
 ---
 
-## Audit and Verification
+## Verification & Documentation
+
+Run verification from the repository root:
 
 ```bash
-# Run all 7 independent scientific checks
+# Execute independent scientific audit suite (7 validation checks)
 python -m src.audit.run_audit
 
-# Run full test suite (117 tests, including real-data validation)
+# Execute full automated test suite (122 tests)
 pytest tests/ -v --run-real-data
 ```
 
-Phase 1 audit deliverables are in `reports/audit/`:
+### Technical Reports & Audit Records
 
-| Document | Description |
+| Document | Focus Area |
 | :--- | :--- |
-| `phase1_requirements_audit.md` | CSAI rubric compliance — 9/9 criteria PASS |
-| `scientific_validation_audit.md` | Dataset, features, splits, metrics, and models deep-audit |
-| `contribution_and_integration_audit.md` | Verified contribution accounting per student |
-| `folder_structure_audit.md` | Annotated directory layout and change justifications |
-| `issue_register.md` | Issue tracking — all Critical/High issues resolved |
-| `final_submission_checklist.md` | Granular Phase 1 submission checklist |
-| `final_readiness_report.md` | Executive readiness declaration |
-
----
-
-## Technical Reports and Documentation
-
-The repository includes a comprehensive set of technical and scientific reports:
-
-| Document | Description |
-| :--- | :--- |
-| [`reports/dataset_eda_report.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/dataset_eda_report.md) | Exploratory data analysis, chemical property distributions, and label imbalance profiling |
-| [`reports/features_and_splitting.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/features_and_splitting.md) | Molecular feature engineering (Morgan fingerprints, descriptors) and Bemis–Murcko scaffold partitioning |
-| [`reports/classical_ml_models.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/classical_ml_models.md) | Baseline classifier architectures (LR, RF, XGBoost), imbalance weighting, and model artifact serialization |
-| [`reports/phase1_model_evaluation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/phase1_model_evaluation.md) | Multi-task baseline model evaluation, threshold tuning, and error analysis across 12 endpoints |
-| [`reports/literature_review.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/literature_review.md) | Theoretical foundations: QSAR modeling, topological fingerprints, scaffold generalization, and GNN motivation (15 citations) |
-| [`reports/viva_preparation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/viva_preparation.md) | Technical defense guide covering cheminformatics theory, leakage prevention, and model architectures |
-| [`reports/audit/`](file:///Users/shouryapratap/Documents/aml-dl/reports/audit/) | Comprehensive Phase 1 scientific verification, rubric compliance, and issue register |
+| [`reports/dataset_eda_report.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/dataset_eda_report.md) | Tox21 curation, RDKit structure sanitization, and endpoint imbalance analysis |
+| [`reports/features_and_splitting.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/features_and_splitting.md) | Morgan fingerprints (2048-bit), 9 descriptors, and Bemis–Murcko scaffold partitioning |
+| [`reports/classical_ml_models.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/classical_ml_models.md) | Baseline classifier architectures (LR, RF, XGBoost) and imbalance-weighted training |
+| [`reports/phase1_model_evaluation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/phase1_model_evaluation.md) | Multi-task test evaluation, threshold tuning, and endpoint error diagnostics |
+| [`reports/literature_review.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/literature_review.md) | QSAR foundations, topological fingerprints, and GNN motivation (15 citations) |
+| [`reports/viva_preparation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/viva_preparation.md) | Technical defense guide covering cheminformatics theory and validation protocols |
+| [`reports/audit/`](file:///Users/shouryapratap/Documents/aml-dl/reports/audit/) | Comprehensive scientific audit, benchmark reconciliation, and rubric compliance records |
 
 ---
 
