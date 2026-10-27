@@ -188,6 +188,7 @@ The repository includes a comprehensive set of technical and scientific reports:
 | :--- | :--- |
 | [`reports/dataset_eda_report.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/dataset_eda_report.md) | Exploratory data analysis, chemical property distributions, and label imbalance profiling |
 | [`reports/features_and_splitting.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/features_and_splitting.md) | Molecular feature engineering (Morgan fingerprints, descriptors) and Bemis–Murcko scaffold partitioning |
+| [`reports/classical_ml_models.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/classical_ml_models.md) | Baseline classifier architectures (LR, RF, XGBoost), imbalance weighting, and model artifact serialization |
 | [`reports/phase1_model_evaluation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/phase1_model_evaluation.md) | Multi-task baseline model evaluation, threshold tuning, and error analysis across 12 endpoints |
 | [`reports/literature_review.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/literature_review.md) | Theoretical foundations: QSAR modeling, topological fingerprints, scaffold generalization, and GNN motivation (15 citations) |
 | [`reports/viva_preparation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/viva_preparation.md) | Technical defense guide covering cheminformatics theory, leakage prevention, and model architectures |
