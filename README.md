@@ -180,14 +180,18 @@ Phase 1 audit deliverables are in `reports/audit/`:
 
 ---
 
-## Reports
+## Technical Reports and Documentation
+
+The repository includes a comprehensive set of technical and scientific reports:
 
 | Document | Description |
 | :--- | :--- |
-| `reports/literature_review.md` | Academic literature review: QSAR, fingerprints, scaffold splitting, GNNs (15 citations) |
-| `reports/viva_preparation.md` | Technical exam preparation: 13 answered questions with mathematical derivations |
-| `reports/phase1_model_evaluation.md` | Detailed Phase 1 model evaluation technical report |
-| `reports/dataset_eda_report.md` | Dataset quality and EDA measurement report |
+| [`reports/dataset_eda_report.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/dataset_eda_report.md) | Exploratory data analysis, chemical property distributions, and label imbalance profiling |
+| [`reports/features_and_splitting.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/features_and_splitting.md) | Molecular feature engineering (Morgan fingerprints, descriptors) and Bemis–Murcko scaffold partitioning |
+| [`reports/phase1_model_evaluation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/phase1_model_evaluation.md) | Multi-task baseline model evaluation, threshold tuning, and error analysis across 12 endpoints |
+| [`reports/literature_review.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/literature_review.md) | Theoretical foundations: QSAR modeling, topological fingerprints, scaffold generalization, and GNN motivation (15 citations) |
+| [`reports/viva_preparation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/viva_preparation.md) | Technical defense guide covering cheminformatics theory, leakage prevention, and model architectures |
+| [`reports/audit/`](file:///Users/shouryapratap/Documents/aml-dl/reports/audit/) | Comprehensive Phase 1 scientific verification, rubric compliance, and issue register |
 
 ---
 

@@ -1,21 +1,19 @@
-# Student 2 Report — Molecular Features and Scaffold Splitting
+# Technical Report: Molecular Features and Scaffold Splitting
 
 **Project:** Molecular Toxicity Prediction via Chemical Fingerprints and Molecular Graph Networks  
-**Author:** Student 2 (Features & Scaffold Splitting Specialist)  
-**Date:** 2026-10-26  
+**Scope:** Circular Topological Fingerprints, Physicochemical Descriptors, and Bemis–Murcko Scaffold Splitting  
 **Status:** Complete & Verified  
 
 ---
 
-## 1. Overview & Responsibilities
+## 1. Overview & Architecture
 
-As Student 2, my project responsibilities include:
-1. **Auditing and verifying Student 1's preprocessing deliverables** (documented in `reports/student2_integration_audit.md`).
-2. **Implementing Morgan chemical fingerprints** (binary and count representations).
-3. **Implementing physicochemical molecular descriptors** (nine standardized RDKit descriptors).
-4. **Assembling combined feature representations** with row-level alignment and audit manifests.
-5. **Implementing reproducible Bemis–Murcko scaffold-based train/val/test splitting**.
-6. **Developing independent unit and integration tests** ensuring mathematical validity and zero data leakage.
+This module provides the core cheminformatics feature extraction and partition architecture:
+1. **Morgan chemical fingerprints** (binary and count representations, radius 2, 2,048 bits).
+2. **Physicochemical molecular descriptors** (nine standardized RDKit descriptors).
+3. **Combined feature representations** with row-level alignment and audit manifests.
+4. **Reproducible Bemis–Murcko scaffold-based train/val/test splitting** (80/10/10 partition).
+5. **Independent unit and integration tests** ensuring mathematical validity and zero data leakage.
 
 All feature extractions and partition assignments were performed on the verified cleaned dataset `data/processed/tox21_cleaned.csv` (7,823 valid molecular structures, SHA-256 `2a30e42b7addbebb02e8c440f88ac553eb7d20b775583d9bcff256c6c0d07270`).
 
