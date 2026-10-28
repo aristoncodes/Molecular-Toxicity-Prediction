@@ -22,7 +22,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-`requirements.txt` pins the complete environment (29 packages). Verified on Python 3.12.4, macOS arm64.
+`requirements.txt` pins the complete environment (29 packages). Verified on Python 3.12.4 and 3.12.0, macOS arm64.
+
+**macOS:** XGBoost needs the OpenMP runtime. Run `brew install libomp` first, otherwise `import xgboost` fails and three test modules error at collection. See [`reports/experiment_reproducibility.md`](reports/experiment_reproducibility.md) for a no-install workaround.
 
 ---
 
@@ -50,7 +52,12 @@ python -m src.features.build_features
 python -m src.data.split_data --seed 42
 
 # 7. Run multi-task baseline benchmarks (LR, RF, XGBoost × 3 feature sets)
+#    (overwrites tracked results/metrics/; pass --output DIR to write elsewhere)
 python -m src.evaluation.model_evaluation
+
+# 7b. Endpoint label diagnostics and RF-combined error analysis + figures
+python -m src.evaluation.endpoint_analysis
+python -m src.evaluation.error_analysis
 
 # 8. Run the independent scientific audit suite
 python -m src.audit.run_audit
@@ -59,7 +66,7 @@ python -m src.audit.run_audit
 pytest tests/ -v --run-real-data
 ```
 
-Every module accepts `--config PATH`. Configuration lives in `configs/data_config.yaml`. All random seeds are recorded; no uncontrolled stochasticity is introduced.
+The data modules (steps 1–4) accept `--config PATH`; configuration lives in `configs/data_config.yaml`. Steps 5–8 take their own CLI flags (e.g. `--seed`, `--output`) instead. All random seeds are recorded; no uncontrolled stochasticity is introduced.
 
 ---
 
@@ -78,11 +85,11 @@ aml-dl/
 │   ├── features/                   # Morgan fingerprints, descriptors, combined matrix, scaler
 │   ├── evaluation/                 # Metrics, aggregation, model training, error analysis
 │   └── audit/                      # Independent dataset, split, and reproducibility auditors
-├── tests/                          # 117 automated unit and regression tests
+├── tests/                          # 122 automated unit and regression tests
 ├── results/
 │   ├── experiment_logs/            # Gitignored: audit JSON, data quality report, exclusions
-│   ├── figures/                    # Gitignored: EDA plots and evaluation figures
-│   └── metrics/                    # Gitignored: prediction CSVs and benchmark summary
+│   ├── figures/                    # Tracked: 3 evaluation figures (eda/ subfolder is gitignored)
+│   └── metrics/                    # Tracked: prediction CSVs, benchmark summary, diagnostics
 └── reports/
     ├── literature_review.md
     ├── viva_preparation.md
@@ -110,7 +117,7 @@ aml-dl/
 | Raw records | 7,831 rows × 14 columns |
 | Valid molecules | 7,823 (8 organometallic structures excluded) |
 | Endpoints | 12 binary toxicity assays (NR-AR, NR-AhR, SR-ARE, SR-MMP, …) |
-| Positive prevalence | 2.84% (SR-HSE) to 15.82% (NR-AhR) |
+| Positive prevalence | 2.89% (NR-PPAR-gamma) to 16.17% (SR-ARE) |
 
 ---
 
@@ -151,6 +158,8 @@ All models evaluated on unseen scaffolds. Thresholds selected on validation only
 | XGBoost | Descriptors | 0.7024 ± 0.0256 | 0.0887 | 0.2911 ± 0.0454 | 0.6394 | 0.3133 |
 | Logistic Regression | Morgan | 0.6987 ± 0.0149 | 0.0515 | 0.2602 ± 0.0341 | 0.6216 | 0.3001 |
 
+"± SEM" is the standard error across the 12 endpoint scores of a single seed-42 run. It is not run-to-run uncertainty. These committed values recompute exactly from the saved prediction CSVs. Retraining in the pinned environment reproduces XGBoost exactly, but RF/LR differ slightly (RF-combined 0.7625), because the package versions behind the committed run were not recorded. See [`reports/experiment_tracking_audit.md`](reports/experiment_tracking_audit.md).
+
 Full per-endpoint results: `results/metrics/model_benchmark_summary.json`  
 Prediction CSVs: `results/metrics/predictions_<model>_<features>.csv`
 
@@ -164,22 +173,26 @@ Run verification from the repository root:
 # Execute independent scientific audit suite (7 validation checks)
 python -m src.audit.run_audit
 
-# Execute full automated test suite (122 tests)
-pytest tests/ -v --run-real-data
+# Execute full automated test suite (122 tests; requires steps 1-6 to have been run)
+python -m pytest tests/ -v --run-real-data
 ```
 
 ### Technical Reports & Audit Records
 
 | Document | Focus Area |
 | :--- | :--- |
-| [`reports/dataset_eda_report.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/dataset_eda_report.md) | Tox21 curation, RDKit structure sanitization, and endpoint imbalance analysis |
-| [`reports/features_and_splitting.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/features_and_splitting.md) | Morgan fingerprints (2048-bit), 9 descriptors, and Bemis–Murcko scaffold partitioning |
-| [`reports/classical_ml_models.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/classical_ml_models.md) | Baseline classifier architectures (LR, RF, XGBoost) and imbalance-weighted training |
-| [`reports/phase1_model_evaluation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/phase1_model_evaluation.md) | Multi-task test evaluation, threshold tuning, and endpoint error diagnostics |
-| [`reports/literature_review.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/literature_review.md) | QSAR foundations, topological fingerprints, and GNN motivation (15 citations) |
-| [`reports/viva_preparation.md`](file:///Users/shouryapratap/Documents/aml-dl/reports/viva_preparation.md) | Technical defense guide covering cheminformatics theory and validation protocols |
-| [`reports/contributions/`](file:///Users/shouryapratap/Documents/aml-dl/reports/contributions/) | Dedicated individual contribution reports for Students 1 through 5 |
-| [`reports/audit/`](file:///Users/shouryapratap/Documents/aml-dl/reports/audit/) | Comprehensive scientific audit, benchmark reconciliation, and rubric compliance records |
+| [`reports/dataset_eda_report.md`](reports/dataset_eda_report.md) | Tox21 curation, RDKit structure sanitization, and endpoint imbalance analysis |
+| [`reports/features_and_splitting.md`](reports/features_and_splitting.md) | Morgan fingerprints (2048-bit), 9 descriptors, and Bemis–Murcko scaffold partitioning |
+| [`reports/classical_ml_models.md`](reports/classical_ml_models.md) | Baseline classifier architectures (LR, RF, XGBoost) and imbalance-weighted training |
+| [`reports/phase1_model_evaluation.md`](reports/phase1_model_evaluation.md) | Multi-task test evaluation, threshold tuning, and endpoint error diagnostics |
+| [`reports/literature_review.md`](reports/literature_review.md) | QSAR foundations, fingerprints, scaffold splitting, metrics, and GNN motivation (24 references, metadata-verified) |
+| [`reports/ieee_report/references.bib`](reports/ieee_report/references.bib) | Verified BibTeX bibliography |
+| [`reports/research_implementation_traceability.md`](reports/research_implementation_traceability.md) | Rationale → reference → code → test evidence matrix |
+| [`reports/experiment_reproducibility.md`](reports/experiment_reproducibility.md) | Environment, exact commands, configuration, artifact map, verified outcomes |
+| [`reports/experiment_tracking_audit.md`](reports/experiment_tracking_audit.md) | Benchmark traceability, re-run comparison, and documentation discrepancies |
+| [`reports/viva_preparation.md`](reports/viva_preparation.md) | Technical defense guide covering cheminformatics theory and validation protocols |
+| [`reports/contributions/`](reports/contributions/) | Dedicated individual contribution reports for Students 1 through 5 |
+| [`reports/audit/`](reports/audit/) | Comprehensive scientific audit, benchmark reconciliation, and rubric compliance records |
 
 ---
 

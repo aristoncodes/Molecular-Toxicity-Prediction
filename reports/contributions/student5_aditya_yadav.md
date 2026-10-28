@@ -1,53 +1,73 @@
-# Student 5 Contribution Report: Literature Review, IEEE Report and Presentation
+# Student 5 Contribution Report: Research Foundation, Literature Verification and Reproducibility Integration
 
 **Name:** Aditya Yadav  
-**Role:** Documentation Owner  
+**Role:** Documentation Owner, Phase 1 research and reproducibility integration  
 **Project:** Molecular Toxicity Prediction via Chemical Fingerprints and Molecular Graph Networks  
-**Scope:** Phase 1 — Academic Literature Review, Citation Management, IEEE Conference Paper, and Oral Presentation  
+**Scope:** Phase 1 (classical ML on Tox21) only. No Phase 2 / GNN implementation. The IEEE manuscript and presentation are authored separately by the team and were not edited as part of this work.
 
 ---
 
 ## 1. Responsibilities
 
-- Review relevant molecular toxicity prediction literature across QSAR, chemical fingerprints, scaffold splitting, and graph neural networks.
-- Maintain accurate bibliographic citations and BibTeX records.
-- Assemble the formal IEEE conference paper using the empirical benchmark results verified by Students 1–4.
-- Create oral defense presentation slides, comparative summary tables, and presentation figures.
-- Maintain the project README, setup instructions, and team contribution records.
-- Coordinate team presentation readiness and technical viva defense preparation.
+- Review and verify the molecular toxicity prediction literature, and maintain an accurate bibliography.
+- Link each methodological rationale to the code and tests that implement it.
+- Document and independently check how Phase 1 experiments are reproduced and tracked.
+- Keep the README and shared documentation consistent with the saved empirical results.
+- Support viva preparation.
 
 ---
 
-## 2. Technical Deliverables
+## 2. Work Completed (2026-10-28)
 
-### Technical Documentation & Academic Reports (`reports/`)
-- `reports/literature_review.md`: Exhaustive 7-section literature review analyzing:
-  - High-throughput toxicology challenges (Tox21 data sparsity, class imbalance).
-  - 1D/2D physicochemical descriptors (Hansch, Lipinski, Ertl).
-  - Circular topological fingerprints (ECFP / Morgan fingerprints, Rogers & Hahn 2010).
-  - Classical QSAR machine learning algorithms (LR, RF, XGBoost).
-  - Scaffold-based out-of-distribution evaluation (Bemis & Murcko 1996; Wu et al. 2018).
-  - Imbalance-aware evaluation metrics (ROC-AUC vs. PR-AUC).
-  - Research gap justifying Phase 2 Graph Neural Networks (GCN, GAT, GIN).
-  - 15 peer-reviewed citations with formal bibliographic entries.
-- `reports/viva_preparation.md`: Comprehensive 13-question technical examination guide covering:
-  - Tox21 biological assay mechanisms (NR and SR pathways).
-  - RDKit sanitization and organometallic exclusion rationale.
-  - Mathematical derivation of Morgan fingerprint hashing iterations.
-  - Scaffold splitting vs. random splitting leakage proofs.
-  - Preprocessing leakage prevention via training-only standardization.
-  - Unlabelled sample masking and threshold tuning protocols.
-  - Phase 1 champion benchmark results and Phase 2 GNN motivation.
-- `README.md`: Centralized project README detailing setup instructions, full reproduction commands, repository architecture, scientific policies, verified benchmark tables, and team roles.
+| File | Change | Why |
+| :--- | :--- | :--- |
+| `reports/literature_review.md` | Revised | Citation and factual errors corrected (wrong Huang et al. title; Fsp³ misattributed to a solubility paper; 3 in-text citations missing from the list; wrong prevalence range; unsupported numbers; MoleculeNet over-claim). Every statement is now marked as either a literature finding or a **[Project]** measurement. A verification log was added |
+| `reports/ieee_report/references.bib` | **Created** | No BibTeX file existed. 24 entries, metadata checked against Crossref/arXiv. The manuscript itself was not touched |
+| `reports/research_implementation_traceability.md` | **Created** | 18-row matrix: rationale → reference → code → test/artifact → status → limitation |
+| `reports/experiment_reproducibility.md` | **Created** | Exact commands, configuration, artifact map and verified outcomes from a clean environment |
+| `reports/experiment_tracking_audit.md` | **Created** | Benchmark traceability, re-run comparison and 14 documentation discrepancies (D1–D14) |
+| `README.md` | Edited | Fixed 8 broken `file:///Users/shouryapratap/...` links, prevalence range, test count (117 → 122) and the tracked/ignored labels for `results/`. Added the macOS `libomp` requirement, the missing pipeline steps 7b, an explanation of what SEM means, and links to the new documents |
+| `reports/viva_preparation.md` | Edited | Q10 prevalence example corrected; Q12 feature-ranking statement corrected; Q12 notes on SEM and reproducibility added |
+| `reports/contributions/student5_aditya_yadav.md` | Rewritten (this file) | The previous version quoted SR-HSE metrics (ROC ~0.66, PR-AUC 0.1542) and a "+0.10 to +0.15" random-split inflation figure, neither of which is supported by any repository artifact |
 
-### Final Submission Deliverables (User Authoring Responsibilities)
-- `reports/ieee_phase1_manuscript.tex`: IEEEtran LaTeX conference manuscript template prepared for final paper authoring and compilation.
-- Presentation Slides / Deck: Coordinated oral defense presentation based on `reports/viva_preparation.md` and benchmark comparison figures in `results/figures/`.
+This file serves as the requested `student5_contribution.md`. It was kept at the existing `reports/contributions/` path so it sits with the Student 1–4 reports instead of duplicating them.
 
 ---
 
-## 3. Key Findings & Literature Insights
+## 3. Evidence
 
-- **The Scaffold Generalization Problem:** Random dataset splitting in chemical libraries allows peripheral analogs to cross partitions, inflating test ROC-AUC scores by $+0.10$ to $+0.15$. Bemis–Murcko scaffold partitioning provides the only scientifically honest out-of-distribution test for novel chemical discovery.
-- **Metric Rigor in Toxicology:** In assays with $<5\%$ positive prevalence (e.g., `SR-HSE` at 2.84%), ROC-AUC remains artificially high ($\sim 0.66$) because large true negative counts buffer false positive rates. PR-AUC ($0.1542$) provides the true measure of actionable precision for experimental cherry-picking.
-- **Phase 2 Research Gap:** Handcrafted Morgan fingerprints use fixed 2048-bit modulo hashing that suffers from bit collisions, lacks stereochemical awareness, and cannot adapt to target proteins. Graph Neural Networks operating directly on molecular graphs $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ are required to learn adaptive, end-to-end representations.
+All of the following were executed, not assumed. Commands are in `reports/experiment_reproducibility.md`.
+
+- **Fresh environment:** Python 3.12.0 venv with the pinned `requirements.txt`.
+- **Pipeline steps 1–6:** checksum matched; 7,823 valid molecules / 8 excluded; split 6,258 / 782 / 783; 0 scaffold overlap.
+- **`python -m src.audit.run_audit`:** exit 0, `passed`. Check 7 was found to be stale.
+- **`python -m pytest tests/ --run-real-data`:** **122 passed**. This needed OpenMP for XGBoost on macOS.
+- **Independent metric recomputation** from the 9 committed prediction CSVs with `sklearn.metrics`: exact match to the committed tables.
+- **Retraining all 9 configurations** into a scratch directory: XGBoost and LR-descriptors byte-identical; RF and LR-Morgan/combined differ (RF-combined 0.7625 vs committed 0.7488). Traced to an unrecorded scikit-learn version.
+- **24 references** resolved via Crossref/arXiv. MoleculeNet split and metric claims were checked against the full text.
+- `git status` was confirmed clean of unintended changes after every run. Steps that overwrite tracked files were redirected to a scratch directory.
+
+---
+
+## 4. Key Findings
+
+1. **The headline numbers are traceable but not exactly regenerable.** RF-combined 0.7488 ± 0.0181 recomputes exactly from the saved predictions. Retraining with pinned packages gives 0.7625 ± 0.0196. The ranking is unchanged.
+2. **"± SEM" is across endpoints, from one run.** It is not repeated-seed uncertainty and cannot support claims of statistical significance.
+3. **MoleculeNet benchmarks Tox21 with a random split**, so this project's scaffold-split results should not be compared with MoleculeNet's numbers directly.
+4. **Validation and test sets contain only singleton scaffolds**, a consequence of the largest-first split. This should be disclosed.
+5. **Reports owned by other students contain stale values.** `phase1_model_evaluation.md` §6.1 has 9 of 12 endpoint rows wrong, and the audit's check 7 is hard-coded. These were reported, not edited.
+
+---
+
+## 5. Limitations of This Work
+
+- RF/LR results were not regenerated in the repository. Whether to replace the committed artifacts is a team decision for Students 3 and 4.
+- Steps 7b and 7c (`endpoint_analysis`, `error_analysis`) were not re-run; their tracked outputs were checked against the summary JSON instead.
+- Citations were verified for metadata; claim-level checks against source text were done only for MoleculeNet, Kapoor & Narayanan, and Yang et al.
+- The XGBoost tests were run using scikit-learn's bundled `libomp` through `DYLD_LIBRARY_PATH`, not a system install.
+
+---
+
+## 6. How This Complements Students 1–4
+
+Students 1–4 built the data pipeline, features, models and evaluation. Student 5 adds no new pipeline code. The contribution is independent verification: tying the scientific rationale to verified sources, checking the code against that rationale, regenerating the pipeline from scratch, and making sure every reported number can be traced to an artifact. This makes Phase 1 easier to reproduce, explain and defend.
