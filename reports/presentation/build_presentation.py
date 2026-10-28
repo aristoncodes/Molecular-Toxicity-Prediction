@@ -354,14 +354,10 @@ steps = [
 cw, gap = 1.6, 0.15
 for i, (h, b, col) in enumerate(steps):
     x = 0.6 + i * (cw + gap)
-    chev = box(s, x, 2.0, cw, 1.05, fill=col, shape=MSO_SHAPE.CHEVRON if i else MSO_SHAPE.PENTAGON)
-    tf = chev.text_frame
-    tf.margin_left, tf.margin_right = Inches(0.3), Inches(0.2)
-    p = tf.paragraphs[0]
-    p.alignment = PP_ALIGN.CENTER
-    r = p.add_run()
-    r.text = h
-    r.font.name, r.font.size, r.font.bold, r.font.color.rgb = BODY_FONT, Pt(13), True, WHITE
+    box(s, x, 2.0, cw, 1.05, fill=col, shape=MSO_SHAPE.CHEVRON if i else MSO_SHAPE.PENTAGON)
+    # Label as a separate text box: a chevron's own text inset is too narrow and wraps per letter
+    text(s, x + (0.3 if i else 0.05), 2.0, cw - (0.55 if i else 0.35), 1.05, h, size=13, bold=True, color=WHITE,
+         align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, margin=0)
     box(s, x + 0.05, 3.3, cw - 0.1, 1.75, fill=TINT)
     text(s, x + 0.1, 3.38, cw - 0.2, 1.6, b, size=13, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
 box(s, 0.6, 5.45, 12.1, 1.15, fill=WHITE, line=RGBColor(0xC8, 0xD0, 0xDA))
@@ -478,7 +474,7 @@ for k, (metric, title, lo_, hi_) in enumerate((("roc", "Test macro ROC-AUC", 0.6
     cd = CategoryChartData()
     cd.categories = ["Logistic Reg.", "Random Forest", "XGBoost"]
     for fk, fl in (("morgan", "Morgan"), ("descriptors", "Descriptors"), ("combined", "Combined")):
-        cd.add_series(fl, [round(CFG[f"{m}_{fk}"][f"{metric}_mean"], 4)
+        cd.add_series(fl, [CFG[f"{m}_{fk}"][f"{metric}_mean"]
                            for m in ("logistic_regression", "random_forest", "xgboost")])
     gf = s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(0.6 + k * 6.15), Inches(1.45), Inches(5.95),
                             Inches(5.35), cd)

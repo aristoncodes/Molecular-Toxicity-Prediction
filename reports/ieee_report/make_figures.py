@@ -143,7 +143,7 @@ ax1.set_xticks(xe, ENDPOINTS, rotation=60, ha="right")
 ax1.set_ylabel("Percent")
 ax1.grid(axis="y", color="0.9", lw=0.5)
 ax1.set_axisbelow(True)
-ax1.legend(frameon=False, loc="upper left")
+ax1.legend(frameon=False, loc="lower left", bbox_to_anchor=(0.0, 1.0), ncol=1)
 save(fig, "fig_label_statistics")
 
 # ------------------------------------------------------ Fig: pipeline diagram
