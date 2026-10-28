@@ -186,7 +186,9 @@ python -m pytest tests/ -v --run-real-data
 | [`reports/classical_ml_models.md`](reports/classical_ml_models.md) | Baseline classifier architectures (LR, RF, XGBoost) and imbalance-weighted training |
 | [`reports/phase1_model_evaluation.md`](reports/phase1_model_evaluation.md) | Multi-task test evaluation, threshold tuning, and endpoint error diagnostics |
 | [`reports/literature_review.md`](reports/literature_review.md) | QSAR foundations, fingerprints, scaffold splitting, metrics, and GNN motivation (24 references, metadata-verified) |
-| [`reports/ieee_report/references.bib`](reports/ieee_report/references.bib) | Verified BibTeX bibliography |
+| [`reports/ieee_report/phase1_final_manuscript.tex`](reports/ieee_report/phase1_final_manuscript.tex) | Final IEEE-style Phase 1 manuscript (LaTeX; build steps in [`reports/ieee_report/README.md`](reports/ieee_report/README.md)) |
+| [`reports/presentation/phase1_final_presentation.pptx`](reports/presentation/phase1_final_presentation.pptx) | Final Phase 1 presentation (editable PowerPoint) |
+| [`reports/ieee_report/references.bib`](reports/ieee_report/references.bib) | Verified BibTeX bibliography (29 entries) |
 | [`reports/research_implementation_traceability.md`](reports/research_implementation_traceability.md) | Rationale → reference → code → test evidence matrix |
 | [`reports/experiment_reproducibility.md`](reports/experiment_reproducibility.md) | Environment, exact commands, configuration, artifact map, verified outcomes |
 | [`reports/experiment_tracking_audit.md`](reports/experiment_tracking_audit.md) | Benchmark traceability, re-run comparison, and documentation discrepancies |
