@@ -102,7 +102,7 @@ Assay testing in Tox21 is sparse. Crucially, missing labels ($\text{NaN}$) **mus
 
 ### Q10: Why is ROC-AUC alone insufficient, and why is PR-AUC crucial for Tox21?
 **Answer:**
-Tox21 exhibits extreme class imbalance (e.g., `SR-HSE` has only 2.84% positive samples; `NR-AR` has only 4.25%).
+Tox21 exhibits extreme class imbalance (e.g., `NR-PPAR-gamma` has only 2.89% positive samples; `NR-AR` has only 4.24%; source: `results/metrics/endpoint_label_diagnostics.json`).
 - **ROC-AUC:** Computes True Positive Rate ($\frac{\text{TP}}{\text{TP} + \text{FN}}$) against False Positive Rate ($\frac{\text{FP}}{\text{FP} + \text{TN}}$). Because True Negatives ($\text{TN}$) are overwhelmingly large, the denominator $\text{FP} + \text{TN}$ remains huge even when hundreds of false positives occur. This keeps FPR artificially low, masking poor precision and yielding artificially high ROC-AUC scores ($\sim 0.75$).
 - **PR-AUC (Average Precision):** Computes Precision ($\frac{\text{TP}}{\text{TP} + \text{FP}}$) against Recall. Because Precision directly contrasts True Positives against False Positives without any buffering from True Negatives, PR-AUC exposes false alarm rates in cherry-picking toxic molecules.
 
@@ -127,7 +127,9 @@ We trained and evaluated 9 multi-task baseline configurations across all 12 endp
   - Test Macro PR-AUC: **$0.3891 \pm 0.0320$ (SEM)**
   - Test Balanced Accuracy: **$0.6636$**, Macro F1: **$0.3781$**
 - **Second Best:** XGBoost on Combined Features ($0.7456 \pm 0.0179$ ROC-AUC)
-- **Feature Set Ranking:** Combined (2057-dim) > Morgan (2048-dim) > Descriptors (9-dim). The combined matrix gives Random Forest both localized sub-structural bits and global physicochemical context.
+- **Feature Set Ranking:** For the tree models (RF, XGBoost), Combined features beat either set alone on both ROC-AUC and PR-AUC. Morgan vs. Descriptors is mixed: RF ROC-AUC 0.7208 vs 0.7215, but PR-AUC 0.3458 vs 0.2901. For Logistic Regression, Descriptors gives the best ROC-AUC (0.7203) but the worst PR-AUC (0.1968). The combined matrix gives the trees both local substructure bits and global physicochemical context.
+- **If asked what "± SEM" means:** It is the standard error across the 12 endpoint scores from one seed-42 run. It describes variation across endpoints, not run-to-run uncertainty, and no significance test between models was performed.
+- **If asked about reproducibility:** The committed numbers recompute exactly from the saved prediction CSVs. Retraining in the pinned environment reproduces XGBoost exactly. RF-combined comes out at 0.7625 instead of 0.7488 because the scikit-learn version used for the committed run was not recorded; RF-combined still ranks first. See `reports/experiment_tracking_audit.md`.
 
 ### Q13: What are the fundamental limitations of Phase 1 baselines that motivate Graph Neural Networks in Phase 2?
 **Answer:**
