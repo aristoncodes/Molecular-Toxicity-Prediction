@@ -242,11 +242,13 @@ def stat(slide, x, y, w, value, label, color=INK, size=38):
 # SLIDE 1: Title & Team Roles
 # ==============================================================================
 s = dark_slide(notes="Welcome the panel. Emphasize that this is Phase 1 (Classical ML benchmark with strict scaffold splitting).")
-text(s, 0.8, 0.8, 11.7, 0.4, "AI / MACHINE LEARNING RESEARCH PROJECT — PHASE 1", size=13, bold=True, color=RGBColor(0x8F, 0xD3, 0xBE))
-text(s, 0.8, 1.3, 11.7, 2.0, "Molecular Toxicity Prediction via Chemical Fingerprints and Classical ML Baselines",
-     size=36, bold=True, color=WHITE, font=HEAD_FONT)
-text(s, 0.8, 3.4, 11.7, 0.5, "Benchmarking Multi-Task Toxicological Classifiers with Strict Bemis–Murcko Scaffold Splitting",
-     size=18, color=RGBColor(0xCA, 0xD5, 0xE2), italic=True)
+text(s, 0.8, 0.6, 11.7, 0.4, "AI / MACHINE LEARNING RESEARCH PROJECT — PHASE 1", size=13, bold=True, color=RGBColor(0x8F, 0xD3, 0xBE))
+text(s, 0.8, 1.05, 11.7, 1.8, "Molecular Toxicity Prediction via Chemical Fingerprints and Classical ML Baselines",
+     size=34, bold=True, color=WHITE, font=HEAD_FONT)
+text(s, 0.8, 2.9, 11.7, 0.45, "Benchmarking Multi-Task Toxicological Classifiers with Strict Bemis–Murcko Scaffold Splitting",
+     size=17, color=RGBColor(0xCA, 0xD5, 0xE2), italic=True)
+text(s, 0.8, 3.45, 11.7, 0.45, "B.Tech Computer Science and AI  ·  Newton School of Technology",
+     size=15, bold=True, color=RGBColor(0x8F, 0xD3, 0xBE))
 
 team_cards = [
     ("Student 1", "Amogha Raj", "Dataset Preprocessing\n& Quality Audit"),
@@ -257,10 +259,10 @@ team_cards = [
 ]
 for i, (role, name, task) in enumerate(team_cards):
     x = 0.8 + i * 2.38
-    box(s, x, 4.3, 2.25, 2.4, fill=INK_SOFT, line=RGBColor(0x3D, 0x54, 0x75))
-    text(s, x + 0.1, 4.45, 2.05, 0.35, role, size=12, bold=True, color=RGBColor(0x8F, 0xD3, 0xBE), align=PP_ALIGN.CENTER)
-    text(s, x + 0.1, 4.85, 2.05, 0.45, name, size=15, bold=True, color=WHITE, font=HEAD_FONT, align=PP_ALIGN.CENTER)
-    text(s, x + 0.1, 5.4, 2.05, 1.1, task, size=12, color=RGBColor(0xCA, 0xD5, 0xE2), align=PP_ALIGN.CENTER)
+    box(s, x, 4.15, 2.25, 2.55, fill=INK_SOFT, line=RGBColor(0x3D, 0x54, 0x75))
+    text(s, x + 0.1, 4.3, 2.05, 0.35, role, size=12, bold=True, color=RGBColor(0x8F, 0xD3, 0xBE), align=PP_ALIGN.CENTER)
+    text(s, x + 0.1, 4.7, 2.05, 0.45, name, size=15, bold=True, color=WHITE, font=HEAD_FONT, align=PP_ALIGN.CENTER)
+    text(s, x + 0.1, 5.25, 2.05, 1.25, task, size=12, color=RGBColor(0xCA, 0xD5, 0xE2), align=PP_ALIGN.CENTER)
 
 
 # ==============================================================================
